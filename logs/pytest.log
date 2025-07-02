@@ -1,12 +1,12 @@
-WARNING  2025-07-02 20:20:16 [plugin.py:122] ----Start: testCase/test_select_statistics.py::test_select_statistics[data0]----
-INFO     2025-07-02 20:20:17 [plugin.py:190] test status is PASSED (testCase/test_select_statistics.py::test_select_statistics[data0]): 
-WARNING  2025-07-02 20:20:17 [plugin.py:128] -----End: testCase/test_select_statistics.py::test_select_statistics[data0]-----
-WARNING  2025-07-02 20:20:17 [plugin.py:122] ----Start: testCase/test_select_statistics.py::test_select_statistics[data1]----
-INFO     2025-07-02 20:20:17 [plugin.py:190] test status is PASSED (testCase/test_select_statistics.py::test_select_statistics[data1]): 
-WARNING  2025-07-02 20:20:17 [plugin.py:128] -----End: testCase/test_select_statistics.py::test_select_statistics[data1]-----
-WARNING  2025-07-02 20:20:17 [plugin.py:122] ----Start: testCase/test_select_statistics.py::test_select_statistics[data2]----
-INFO     2025-07-02 20:20:17 [plugin.py:190] test status is PASSED (testCase/test_select_statistics.py::test_select_statistics[data2]): 
-WARNING  2025-07-02 20:20:17 [plugin.py:128] -----End: testCase/test_select_statistics.py::test_select_statistics[data2]-----
-WARNING  2025-07-02 20:20:17 [plugin.py:122] ----Start: testCase/test_select_statistics.py::test_select_statistics[data3]----
-INFO     2025-07-02 20:20:17 [plugin.py:190] test status is PASSED (testCase/test_select_statistics.py::test_select_statistics[data3]): 
-WARNING  2025-07-02 20:20:17 [plugin.py:128] -----End: testCase/test_select_statistics.py::test_select_statistics[data3]-----
+WARNING  2025-07-02 20:30:07 [pytest_result_log:122] ----Start: testCase/test_select_statistics.py::test_select_statistics[data0]----
+INFO     2025-07-02 20:30:07 [pytest_result_log:190] test status is PASSED (testCase/test_select_statistics.py::test_select_statistics[data0]): 
+WARNING  2025-07-02 20:30:07 [pytest_result_log:128] -----End: testCase/test_select_statistics.py::test_select_statistics[data0]-----
+WARNING  2025-07-02 20:30:07 [pytest_result_log:122] ----Start: testCase/test_select_statistics.py::test_select_statistics[data1]----
+INFO     2025-07-02 20:30:07 [pytest_result_log:190] test status is PASSED (testCase/test_select_statistics.py::test_select_statistics[data1]): 
+WARNING  2025-07-02 20:30:07 [pytest_result_log:128] -----End: testCase/test_select_statistics.py::test_select_statistics[data1]-----
+WARNING  2025-07-02 20:30:07 [pytest_result_log:122] ----Start: testCase/test_select_statistics.py::test_select_statistics[data2]----
+INFO     2025-07-02 20:30:07 [pytest_result_log:190] test status is PASSED (testCase/test_select_statistics.py::test_select_statistics[data2]): 
+WARNING  2025-07-02 20:30:07 [pytest_result_log:128] -----End: testCase/test_select_statistics.py::test_select_statistics[data2]-----
+WARNING  2025-07-02 20:30:07 [pytest_result_log:122] ----Start: testCase/test_select_statistics.py::test_select_statistics[data3]----
+INFO     2025-07-02 20:30:07 [pytest_result_log:190] test status is PASSED (testCase/test_select_statistics.py::test_select_statistics[data3]): 
+WARNING  2025-07-02 20:30:07 [pytest_result_log:128] -----End: testCase/test_select_statistics.py::test_select_statistics[data3]-----

@@ -27,9 +27,9 @@ class RunMethod(object):
         requests.packages.urllib3.disable_warnings()
         requests.adapters.DEFAULT_RETRIES = 5
 
-        if method == "Post":
+        if method == "Post" or method == "post":
             res = self.post_main(url, headers, data)
-        elif method == "Get":
+        elif method == "Get" or method == "get":
             res = self.get_main(url, headers, data)
         else:
             raise ValueError("不支持的请求方法")

@@ -39,10 +39,11 @@ runMethod = RunMethod()
         {"statisticalMonth": "dsafgjkl 是打发"},
     ],
 )
-def test_select_statistics(data):
+def test_select_statistics(data: dict):
     api = "cwtaxstatistics/selectCwtaxstatistics"
     baseUrl = "http://192.168.0.80:8080/dev-api/dc-project/"
     url = baseUrl + api
+    method = "Post"
     data = json.dumps(data)
     header = {
         "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxNTc1NzE1NzY2NzgyOTk2NDgyIiwicm5TdHIiOiJRMjd6YTRpd3RTSU9QamEzMFB3aEcyOW83VHFDQ3B1YiIsIm1vYmlsZSI6IjE1MDk4MDEwNzA2In0.eK92PD67jkg-oNBO-45cTeA5kd2iNekSsxbQYgXDvz8",
@@ -52,7 +53,7 @@ def test_select_statistics(data):
         "Host": "192.168.0.80:8080",
         "Connection": "keep-alive",
     }
-    res = runMethod.post_main(url, header, data)
+    res = runMethod.run_main(method, url, header, data)
     assert res.status_code == 200
 
 

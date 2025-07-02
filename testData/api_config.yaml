@@ -1,0 +1,19 @@
+host: http://192.168.0.80:8080/dev-api/dc-project/
+
+selectCwtaxstatistics:
+  - name: 查询税费
+    url: cwtaxstatistics/selectCwtaxstatistics
+    method: post
+    data:
+      statisticalYear: 2025 
+      statisticalMonth: 7
+    headers:
+      Content-Type: application/json
+    # 预期
+    expected:
+      code: 200
+      msg: 操作成功
+
+
+
+

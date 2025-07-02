@@ -9,3 +9,5 @@ wheels/
 # Virtual environments
 .venv
 .trae
+# 测试报告
+alluredir-result

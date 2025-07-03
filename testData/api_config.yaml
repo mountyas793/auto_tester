@@ -1,19 +1,55 @@
-host: http://192.168.0.80:8080/dev-api/dc-project/
+# -*- coding: utf-8 -*-
+# @Project: auto_tester
+# @File: app_api.py
+# @Author: Wakka
+# @Date: 2025/07/03 11:02
+# @Desc: 接口集合yaml
+host: http://192.168.0.80:8080/dev-api/
 
+# 查询税费
 selectCwtaxstatistics:
   - name: 查询税费
-    url: cwtaxstatistics/selectCwtaxstatistics
+    group: dc-project/
     method: post
-    data:
-      statisticalYear: 2025 
-      statisticalMonth: 7
+    url: cwtaxstatistics/selectCwtaxstatistics
     headers:
       Content-Type: application/json
+      Authorization: "Bearer {{token}}"
+    params:
+      statisticalYear: 2025
+      statisticalMonth: 7
     # 预期
     expected:
       code: 200
       msg: 操作成功
 
-
-
-
+# 分页查询进项发票
+selectCwInputInvoicePage:
+  - name: 分页查询进项发票-成功
+    group: dc-project/
+    method: post
+    url: cwInputInvoice/selectCwInputInvoicePage
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{token}}"
+    params:
+      pageNum: 1
+      pageSize: 10
+    # 预期
+    expected:
+      code: 200
+      msg: 操作成功
+  - name: 分页查询进项发票-失败
+    group: 1
+    method: post
+    url: cwInputInvoice/selectCwInputInvoicePage
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{token}}"
+    params:
+      pageNum: 1
+      pageSize: 10
+      invoiceType: 5
+    # 预期
+    expected:
+      code: 500

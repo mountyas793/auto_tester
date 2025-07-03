@@ -21,44 +21,30 @@ POST /cwtaxstatistics/selectCwtaxstatistics
 }
 """
 
-import json
-
 import pytest
 
-from common.run_method import RunMethod
-
-runMethod = RunMethod()
+from common.app_api import AllApi
 
 
-@pytest.mark.parametrize(
-    "data",
-    [
-        {"statisticalYear": 2025, "statisticalMonth": 7},
-        {},
-        {"statisticalMonth": 6},
-        {"statisticalMonth": "dsafgjkl 是打发"},
-    ],
-)
-def test_select_statistics(data: dict):
-    api = "cwtaxstatistics/selectCwtaxstatistics"
-    baseUrl = "http://192.168.0.80:8080/dev-api/dc-project/"
-    url = baseUrl + api
-    method = "Post"
-    data = json.dumps(data)
-    header = {
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxNTc1NzE1NzY2NzgyOTk2NDgyIiwicm5TdHIiOiJRMjd6YTRpd3RTSU9QamEzMFB3aEcyOW83VHFDQ3B1YiIsIm1vYmlsZSI6IjE1MDk4MDEwNzA2In0.eK92PD67jkg-oNBO-45cTeA5kd2iNekSsxbQYgXDvz8",
-        "User-Agent": "Apifox/1.0.0 (https://apifox.com)",
-        "Content-Type": "application/json",
-        "Accept": "*/*",
-        "Host": "192.168.0.80:8080",
-        "Connection": "keep-alive",
-    }
-    res = runMethod.run_main(method, url, header, data)
-    assert res.status_code == 200
+@pytest.mark.parametrize("api_name", ["selectCwtaxstatistics"])
+def test_select_statistics_valid(api_name: str) :
+    """
+    测试查询年度，月税费接口
+    :param api_name: 接口名称
+    :return:
+    """
+    all_api = AllApi()
+    res = all_api.send_request(api_name)
+    expect = all_api.get_expect(api_name)
+    assert res["code"] == expect["code"], (
+        f"code: {res['code']}, 预期结果: {expect['code']}"
+    )
+    assert res["msg"] == expect["msg"], f"msg: {res['msg']}, 预期结果: {expect['msg']}"
 
 
 def main():
-    test_select_statistics()
+    test_select_statistics_valid("selectCwtaxstatistics")
+    # pass
 
 
 if __name__ == "__main__":

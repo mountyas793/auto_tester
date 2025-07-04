@@ -9,7 +9,18 @@ import requests
 
 
 class RunMethod(object):
+    """
+    封装requests请求方法
+    """
+
     def post_main(self, url: str, headers: dict, data: dict) -> requests.Response:
+        """
+        post请求
+        :param url: 请求url
+        :param headers: 请求头
+        :param data: 请求参数
+        :return:
+        """
         # 忽略不安全的请求警告信息
         requests.packages.urllib3.disable_warnings()
         # 遇到requests的ssl验证，若想直接跳过不验证，设置verify=False即可
@@ -17,12 +28,27 @@ class RunMethod(object):
         return response
 
     def get_main(self, url: str, headers: dict, data=None) -> requests.Response:
+        """
+        get请求
+        :param url: 请求url
+        :param headers: 请求头
+        :param data: 请求参数
+        :return:
+        """
         # 忽略不安全的请求警告信息
         requests.packages.urllib3.disable_warnings()
         response = requests.get(url=url, headers=headers, data=data, verify=False)
         return response
 
     def run_main(self, method: str, url: str, headers: dict, data=None) -> dict:
+        """
+        运行请求
+        :param method: 请求方法
+        :param url: 请求url
+        :param headers: 请求头
+        :param data: 请求参数
+        :return:
+        """
         # 忽略不安全的请求警告信息
         requests.packages.urllib3.disable_warnings()
         requests.adapters.DEFAULT_RETRIES = 5

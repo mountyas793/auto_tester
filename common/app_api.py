@@ -10,12 +10,25 @@ from common.run_method import RunMethod
 from common.yaml_reader import YamlReader
 
 
-class AllApi:
+class AllApi(object):
+    """
+    接口集合
+    """
+
     def __init__(self, api_config: YamlReader):
+        """
+        初始化接口集合
+        :param api_config: 接口配置文件
+        """
         self.run = RunMethod()
         self.api_config = api_config
 
     def send_request(self, api_name: str) -> dict:
+        """
+        发送请求
+        :param api_name: 接口名称
+        :return: 接口响应数据
+        """
         try:
             # 获取接口请求参数
             url = self.api_config.get_url(api_name)
@@ -37,11 +50,7 @@ class AllApi:
                     json.dumps(params, ensure_ascii=False, sort_keys=False),
                 )
             )
-            print(
-                json.dumps(
-                    res["msg"], indent=2, ensure_ascii=False, sort_keys=False
-                )
-            )
+            print(json.dumps(res["msg"], indent=2, ensure_ascii=False, sort_keys=False))
             return res
 
         except Exception as e:
@@ -50,6 +59,11 @@ class AllApi:
             return None
 
     def get_expect(self, api_name: str) -> dict:
+        """
+        获取预期结果
+        :param api_name: 接口名称
+        :return: 预期结果
+        """
         try:
             # 获取yaml文件中的预期结果
             expect = self.api_config.get_expected(api_name)

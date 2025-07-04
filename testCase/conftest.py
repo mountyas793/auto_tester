@@ -16,6 +16,6 @@ def load_env() -> None:
     load_dotenv("config/.env")
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="module", autouse=True)
 def api_config() -> YamlReader:
     return YamlReader("testData/api_config.yaml")

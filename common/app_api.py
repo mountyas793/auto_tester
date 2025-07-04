@@ -11,9 +11,9 @@ from common.yaml_reader import YamlReader
 
 
 class AllApi:
-    def __init__(self):
+    def __init__(self, api_config: YamlReader):
         self.run = RunMethod()
-        self.api_config = YamlReader()
+        self.api_config = api_config
 
     def send_request(self, api_name: str) -> dict:
         try:
@@ -37,7 +37,11 @@ class AllApi:
                     json.dumps(params, ensure_ascii=False, sort_keys=False),
                 )
             )
-            print(json.dumps(res, indent=2, ensure_ascii=False, sort_keys=False))
+            print(
+                json.dumps(
+                    res["msg"], indent=2, ensure_ascii=False, sort_keys=False
+                )
+            )
             return res
 
         except Exception as e:
@@ -59,7 +63,8 @@ class AllApi:
 
 
 def main():
-    all_api = AllApi()
+    yaml_reader = YamlReader("testData/api_config.yaml")
+    all_api = AllApi(yaml_reader)
     res = all_api.send_request("selectCwtaxstatistics")
     # print(res)
 

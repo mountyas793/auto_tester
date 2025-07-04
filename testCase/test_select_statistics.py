@@ -27,13 +27,13 @@ from common.app_api import AllApi
 
 
 @pytest.mark.parametrize("api_name", ["selectCwtaxstatistics"])
-def test_select_statistics_valid(api_name: str) :
+def test_select_statistics_valid(api_name: str, api_config):
     """
     测试查询年度，月税费接口
     :param api_name: 接口名称
     :return:
     """
-    all_api = AllApi()
+    all_api = AllApi(api_config)
     res = all_api.send_request(api_name)
     expect = all_api.get_expect(api_name)
     assert res["code"] == expect["code"], (

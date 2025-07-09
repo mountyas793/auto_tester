@@ -6,9 +6,8 @@
 # @Desc: 配置文件
 
 import pytest
+from common.read_yaml import YamlReader
 from dotenv import load_dotenv
-
-from common.yaml_reader import YamlReader
 
 
 @pytest.fixture(scope="session", autouse=True)

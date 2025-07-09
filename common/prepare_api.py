@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # @Project: auto_tester
-# @File: app_api.py
+# @File: prepare_api.py
 # @Author: Wakka
 # @Date: 2025/07/03 11:02
 # @Desc: 接口集合
-import json
 
+from common.read_yaml import YamlReader
 from common.run_method import RunMethod
-from common.yaml_reader import YamlReader
 
 
 class AllApi(object):
@@ -39,23 +38,12 @@ class AllApi(object):
             if method.upper() == "GET":
                 res = self.run.run_main(method, url, headers)
             elif method.upper() == "POST":
-                params = self.api_config.get_params(api_name)
-                res = self.run.run_main(method, url, headers, params)
-            print(
-                "url: %s, method: %s, headers: %s, params: %s"
-                % (
-                    url,
-                    method,
-                    headers,
-                    json.dumps(params, ensure_ascii=False, sort_keys=False),
-                )
-            )
-            print(json.dumps(res["msg"], indent=2, ensure_ascii=False, sort_keys=False))
+                data = self.api_config.get_data(api_name)
+                res = self.run.run_main(method, url, headers, data)
             return res
 
         except Exception as e:
-            print("接口访问出错啦~ %s" % e)
-            # self.logger.info("接口访问出错啦~ %s" % e)
+            print("接口访问出错啦~ {}".format(e))
             return None
 
     def get_expect(self, api_name: str) -> dict:
@@ -68,17 +56,16 @@ class AllApi(object):
             # 获取yaml文件中的预期结果
             expect = self.api_config.get_expected(api_name)
             if expect is None:
-                raise ValueError("接口 %s 的预期结果为空" % api_name)
+                raise ValueError("接口 {} 的预期结果为空".format(api_name))
             return expect
         except Exception as e:
-            print("获取预期结果出错啦~ %s" % e)
-            # self.logger.info("获取预期结果出错啦~ %s" % e)
+            print("获取预期结果出错啦~ {}".format(e))
             return None
 
 
 def main():
-    yaml_reader = YamlReader("testData/api_config.yaml")
-    all_api = AllApi(yaml_reader)
+    read_yaml = YamlReader("testData/api_config.yaml")
+    all_api = AllApi(read_yaml)
     res = all_api.send_request("selectCwtaxstatistics")
     # print(res)
 

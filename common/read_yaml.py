@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # @Project: auto_tester
-# @File: read_info.py
+# @File: read_yaml.py
 # @Author: Wakka
 # @Date: 2025/07/03 09:17
 # @Desc: 读取yaml文件
@@ -8,10 +8,6 @@ import json
 import os
 
 import yaml
-
-# from dotenv import load_dotenv
-
-# load_dotenv("config/.env")
 
 
 class YamlReader:
@@ -31,7 +27,7 @@ class YamlReader:
                 self._cache[self.yaml_file] = yaml.safe_load(f)
         return self._cache[self.yaml_file]
 
-    def get_data(self) -> dict:
+    def get_info(self) -> dict:
         return self._load_with_cache()
 
     # 获取接口url
@@ -41,7 +37,7 @@ class YamlReader:
         :param api_name: 接口名称
         :return:
         """
-        api_config = self.get_data()
+        api_config = self.get_info()
         api_info = api_config[api_name]
         host = api_config["host"]
         if not isinstance(api_info, (dict, list)):
@@ -59,7 +55,7 @@ class YamlReader:
         :param api_name: 接口名称
         :return:
         """
-        api_config = self.get_data()
+        api_config = self.get_info()
         api_info = api_config[api_name]
         if not isinstance(api_info, (dict, list)):
             raise ValueError(f"Invalid api_info type: {type(api_info)}")
@@ -77,7 +73,7 @@ class YamlReader:
         :param load_env: 是否加载环境变量
         :return:
         """
-        api_config = self.get_data()
+        api_config = self.get_info()
         api_info = api_config[api_name]
         if not isinstance(api_info, (dict, list)):
             raise ValueError(f"Invalid api_info type: {type(api_info)}")
@@ -95,13 +91,13 @@ class YamlReader:
         return headers
 
     # 获取请求参数
-    def get_params(self, api_name: str) -> dict:
+    def get_data(self, api_name: str) -> dict:
         """
         获取请求参数
         :param api_name: 接口名称
         :return:
         """
-        api_config = self.get_data()
+        api_config = self.get_info()
         api_info = api_config[api_name]
         if not isinstance(api_info, (dict, list)):
             raise ValueError(f"Invalid api_info type: {type(api_info)}")
@@ -110,10 +106,11 @@ class YamlReader:
             api_info = api_info[0]
 
         # 处理参数
-        params = json.dumps(api_info["params"])
-        if params is None:
-            params = {}
-        return params
+        # data = json.dumps(api_info["data"])
+        data = api_info["data"]
+        if data is None:
+            data = {}
+        return data
 
     # 获取预期结果
     def get_expected(self, api_name: str) -> dict:
@@ -122,7 +119,7 @@ class YamlReader:
         :param api_name: 接口名称
         :return:
         """
-        api_config = self.get_data()
+        api_config = self.get_info()
         api_info = api_config[api_name]
         if not isinstance(api_info, (dict, list)):
             raise ValueError(f"Invalid api_info type: {type(api_info)}")
@@ -137,10 +134,18 @@ class YamlReader:
 
 
 def main():
-    yaml_reader = YamlReader("testData/api_config.yaml")
+    import dotenv
+
+    dotenv.load_dotenv()
+    # 测试get_url
+    read_yaml = YamlReader("testData/api_config.yaml")
+    print(read_yaml.get_url("selectCwInputInvoicePage"))
+    # 测试get_method
+    print(read_yaml.get_method("selectCwInputInvoicePage"))
+    # 测试get_headers
     print(
         json.dumps(
-            yaml_reader.get_headers("selectCwInputInvoicePage"), ensure_ascii=False
+            read_yaml.get_headers("selectCwInputInvoicePage"), ensure_ascii=False
         )
     )
     # pass

@@ -15,7 +15,7 @@ selectCwtaxstatistics:
     headers:
       Content-Type: application/json
       Authorization: "Bearer {{token}}"
-    params:
+    data:
       statisticalYear: 2025
       statisticalMonth: 7
     # 预期
@@ -32,7 +32,7 @@ selectCwInputInvoicePage:
     headers:
       Content-Type: application/json
       Authorization: "Bearer {{token}}"
-    params:
+    data:
       pageNum: 1
       pageSize: 10
     # 预期

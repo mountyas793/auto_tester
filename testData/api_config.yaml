@@ -4,11 +4,11 @@
 # @Author: Wakka
 # @Date: 2025/07/03 11:02
 # @Desc: 接口集合yaml
-host: http://192.168.0.80:8080/dev-api/
+host: http://192.168.0.3:8080/dev-api/
 
 # 查询税费
-selectCwtaxstatistics:
-  - name: 查询税费
+selectCwtaxstatistics-success:
+  - name: 查询税费-成功
     group: dc-project/
     method: post
     url: cwtaxstatistics/selectCwtaxstatistics

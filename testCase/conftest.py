@@ -6,8 +6,9 @@
 # @Desc: 配置文件
 
 import pytest
-from common.read_yaml import YamlReader
 from dotenv import load_dotenv
+
+from common.read_yaml import YamlReader
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -19,7 +20,7 @@ def load_env() -> None:
     load_dotenv("config/.env")
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def api_config() -> YamlReader:
     """
     获取api配置文件

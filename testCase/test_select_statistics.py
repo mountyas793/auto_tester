@@ -6,11 +6,12 @@
 # @Desc: 查询年度，月税费
 
 import pytest
+
 from common.prepare_api import AllApi
 
 
 class TestSelectStatistics:
-    @pytest.mark.parametrize("api_name", ["selectCwtaxstatistics"])
+    @pytest.mark.parametrize("api_name", ["selectCwtaxstatistics-success"])
     def test_select_statistics_valid(self, api_name: str, api_config):
         """
         测试查询年度，月税费接口

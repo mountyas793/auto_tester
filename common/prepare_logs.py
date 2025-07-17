@@ -63,14 +63,14 @@ class PrepareLogs:
         """
         记录请求日志
         """
-        self.logger.info(f"接口地址  ---->>: {method}  {url}")
-        # print(f"接口地址  ---->>: {method}  {url}")
+        self.logger.info(f">> 接口地址 <<: {method}  {url}")
+        # print(f"接口地址: {method}  {url}")
         if headers:
-            self.logger.info(f"请求头  ---->>: {headers}")
-            # print(f"请求头  ---->>: {headers}")
+            self.logger.info(f">> 请求头 <<: {headers}")
+            # print(f"请求头: {headers}")
         if body:
-            self.logger.info(f"请求体  ---->>: {body}")
-            # print(f"请求体  ---->>: {body}")
+            self.logger.info(f">> 请求体 <<: {body}")
+            # print(f"请求体: {body}")
 
     def log_response(
         self,
@@ -81,12 +81,12 @@ class PrepareLogs:
         """
         记录响应日志
         """
-        self.logger.info(f"状态码  <<----: {status_code}")
-        # print(f"状态码  <<----: {status_code}")
+        self.logger.info(f">> 状态码 <<: {status_code}")
+        # print(f"状态码: {status_code}")
         if headers:
-            self.logger.info(f"响应头  <<----: {headers}")
+            self.logger.info(f">> 响应头 <<: {headers}")
         if content:
-            self.logger.info(f"响应体  <<----: {content}")
+            self.logger.info(f">> 响应体 <<: {content}")
 
 
 def main():

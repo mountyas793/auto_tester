@@ -4,52 +4,66 @@
 # @Author: Wakka
 # @Date: 2025/07/03 11:02
 # @Desc: 接口集合yaml
-host: http://192.168.0.3:8080/dev-api/
 
-# 查询税费
-selectCwtaxstatistics-success:
-  - name: 查询税费-成功
-    group: dc-project/
-    method: post
-    url: cwtaxstatistics/selectCwtaxstatistics
+# SCM材料分类查询
+SelectMaterialCategory:
+  - name: SCM材料分类查询-成功
+    group: /dc-supplier-new
+    method: get
+    url: /supplierMaterialBrand/selectSupplierMaterial
     headers:
       Content-Type: application/json
       Authorization: "Bearer {{token}}"
-    data:
-      statisticalYear: 2025
-      statisticalMonth: 7
-    # 预期
     expected:
       code: 200
       msg: 操作成功
 
-# 分页查询进项发票
-selectCwInputInvoicePage:
-  - name: 分页查询进项发票-成功
-    group: dc-project/
+# SCM-新增-材料分类
+AddMaterialCategory:
+  - name: SCM-新增-材料分类-成功
+    group: /dc-supplier-new
     method: post
-    url: cwInputInvoice/selectCwInputInvoicePage
+    url: /supplierMaterialBrand/addSupplierMaterial
     headers:
       Content-Type: application/json
       Authorization: "Bearer {{token}}"
     data:
-      pageNum: 1
-      pageSize: 10
-    # 预期
+      id:
+      name: new-demo
+      "no": 99901
+      parentId: 0
+      remarks: 修改备注
     expected:
       code: 200
       msg: 操作成功
-  - name: 分页查询进项发票-失败
-    group: 1
+
+  - name: SCM-新增-材料分类-失败
+    group: /dc-supplier-new
     method: post
-    url: cwInputInvoice/selectCwInputInvoicePage
+    url: /supplierMaterialBrand/addSupplierMaterial
     headers:
       Content-Type: application/json
       Authorization: "Bearer {{token}}"
-    params:
-      pageNum: 1
-      pageSize: 10
-      invoiceType: 5
-    # 预期
+    data:
+      id: sadf
+      name: new-demo
+      "no": 99901
+      parentId: 0
+      remarks: 修改备注
     expected:
-      code: 500
+      code: 400
+      msg: 操作失败
+# # SCM删除材料分类
+# DeleteMaterialCategory:
+#   - name: SCM删除材料分类-成功
+#     group: /dc-supplier-new
+#     method: delete
+#     url: /supplierMaterialBrand/deleteSupplierMaterialBrand
+#     headers:
+#       Content-Type: application/json
+#       Authorization: "Bearer {{token}}"
+#     data:
+#       id: {{material_id}}
+#     expected:
+#       code: 200
+#       msg: 操作成功

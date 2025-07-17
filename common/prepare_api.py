@@ -62,6 +62,25 @@ class AllApi(object):
             print("获取预期结果出错啦~ {}".format(e))
             return None
 
+    def set_data(self, api_name: str, key: str, value: str):
+        """
+        设置接口请求参数
+        :param api_name: 接口名称
+        :param key: 参数名称
+        :param value: 参数值
+        :return: None
+        """
+        try:
+            # 获取接口请求参数
+            data = self.api_config.get_data(api_name)
+            if data is None:
+                raise ValueError("接口 {} 的请求参数为空".format(api_name))
+            # 设置参数值
+            data[key] = value
+            self.api_config.set_data(api_name, data)
+        except Exception as e:
+            print("设置接口请求参数出错啦~ {}".format(e))
+
 
 def main():
     read_yaml = YamlReader("testData/api_config.yaml")

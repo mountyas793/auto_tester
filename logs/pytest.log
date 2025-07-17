@@ -1,9 +1,56 @@
-WARNING  2025-07-14 10:44:17 [pytest_result_log:122] Start: testCase/test_select_statistics.py::TestSelectStatistics::test_select_statistics_valid[selectCwtaxstatistics-success]
-INFO     2025-07-14 10:44:18 [requests:66] 接口地址  ---->>: post  http://192.168.0.3:8080/dev-api/dc-project/cwtaxstatistics/selectCwtaxstatistics
-INFO     2025-07-14 10:44:18 [requests:69] 请求头  ---->>: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxNTc1NzE1NzY2NzgyOTk2NDgyIiwicm5TdHIiOiJIM21RblVGeFY1MUI4T2o0ZnVUYmo2UlM3eGlmQ0RNYSIsIm1vYmlsZSI6IjE1MDk4MDEwNzA2In0.5gIG2riIW9FiE-GJXVO9CeGQhUyVDCxWUNQmYqJeuAA'}
-INFO     2025-07-14 10:44:18 [requests:72] 请求体  ---->>: {'statisticalYear': 2025, 'statisticalMonth': 7}
-INFO     2025-07-14 10:44:18 [requests:84] 状态码  <<----: 200
-INFO     2025-07-14 10:44:18 [requests:87] 响应头  <<----: {'X-Powered-By': 'Express', 'vary': 'Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers', 'tlogtraceid': '17136684841309952', 'content-type': 'application/json; charset=UTF-8', 'date': 'Mon, 14 Jul 2025 02:44:19 GMT', 'content-encoding': 'gzip', 'transfer-encoding': 'chunked', 'connection': 'close'}
-INFO     2025-07-14 10:44:18 [requests:89] 响应体  <<----: {'code': 200, 'msg': '操作成功', 'data': [{'id': '1940342090512908290', 'type': 0, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090512908291', 'type': 1, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090512908292', 'type': 2, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296898', 'type': 3, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296899', 'type': 4, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296900', 'type': 5, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296901', 'type': 6, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296902', 'type': 7, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296903', 'type': 8, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296904', 'type': 9, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296905', 'type': 10, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296906', 'type': 11, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296907', 'type': 12, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296908', 'type': 13, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296909', 'type': 14, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296910', 'type': 15, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}, {'id': '1940342090521296911', 'type': 16, 'money': '0.00', 'statisticalYear': None, 'statisticalMonth': None, 'deptId': None, 'pageSize': 10, 'pageNum': 1}]}
-INFO     2025-07-14 10:44:18 [pytest_result_log:190] test status is PASSED (testCase/test_select_statistics.py::TestSelectStatistics::test_select_statistics_valid[selectCwtaxstatistics-success]): 
-WARNING  2025-07-14 10:44:18 [pytest_result_log:128] End: testCase/test_select_statistics.py::TestSelectStatistics::test_select_statistics_valid[selectCwtaxstatistics-success]
+》》 INFO     2025-07-16 16:56:47 [pytest_result_log:122] :  Start: testCase/test_select_statistics.py::TestSupplierMaterial::test_select_material_category_valid[SelectMaterialCategory] 《
+》》 INFO     2025-07-16 16:56:49 [requests:66] :  >> 接口地址 <<: get  http://192.168.0.3:8080/dev-api/dc-supplier-new/supplierMaterialBrand/selectSupplierMaterial 《
+》》 INFO     2025-07-16 16:56:49 [requests:69] :  >> 请求头 <<: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxNTc1NzE1NzY2NzgyOTk2NDgyIiwicm5TdHIiOiJZb0dwaXN0VlkyWmhCN1ljUmJrMGZnUkpsbHdJc2x2aiIsIm1vYmlsZSI6IjE1MDk4MDEwNzA2In0.2odJEbErTOCnXEZ_5mNIArkYHV4PXfBcjJpjfhcev0g'} 《
+》》 ERROR    2025-07-16 16:56:49 [pytest_result_log:190] :  test status is FAILED (testCase/test_select_statistics.py::TestSupplierMaterial::test_select_material_category_valid[SelectMaterialCategory]): TypeError 《
+》》 INFO     2025-07-16 16:56:49 [pytest_result_log:194] :  testCase/test_select_statistics.py::TestSupplierMaterial::test_select_material_category_valid[SelectMaterialCategory] -> self = <auto_tester.testCase.test_select_statistics.TestSupplierMaterial object at 0x0000025E8A5ECA90>, shared_data = {}
+api_params = 'SelectMaterialCategory', all_api = <common.prepare_api.AllApi object at 0x0000025E8A619F50>
+
+    @pytest.mark.parametrize("api_params", ["SelectMaterialCategory"])
+    def test_select_material_category_valid(
+        self,
+        shared_data: dict,
+        api_params: dict,
+        all_api: AllApi,
+    ):
+        """
+        测试查询SCM材料分类接口
+        """
+        res = all_api.send_request("SelectMaterialCategory")
+        expect = all_api.get_expect("SelectMaterialCategory")
+    
+>       assert res["code"] == expect["code"], (
+               ^^^^^^^^^^^
+            f"code: {res['code']}, 预期结果: {expect['code']}"
+        )
+E       TypeError: 'NoneType' object is not subscriptable
+
+testCase\test_select_statistics.py:27: TypeError 《
+》》 INFO     2025-07-16 16:56:49 [pytest_result_log:128] :  End: testCase/test_select_statistics.py::TestSupplierMaterial::test_select_material_category_valid[SelectMaterialCategory] 《
+》》 INFO     2025-07-16 16:56:49 [pytest_result_log:122] :  Start: testCase/test_select_statistics.py::TestSupplierMaterial::test_add_material_category_valid[AddMaterialCategory] 《
+》》 INFO     2025-07-16 16:56:51 [requests:66] :  >> 接口地址 <<: post  http://192.168.0.3:8080/dev-api/dc-supplier-new/supplierMaterialBrand/addSupplierMaterial 《
+》》 INFO     2025-07-16 16:56:51 [requests:69] :  >> 请求头 <<: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxNTc1NzE1NzY2NzgyOTk2NDgyIiwicm5TdHIiOiJZb0dwaXN0VlkyWmhCN1ljUmJrMGZnUkpsbHdJc2x2aiIsIm1vYmlsZSI6IjE1MDk4MDEwNzA2In0.2odJEbErTOCnXEZ_5mNIArkYHV4PXfBcjJpjfhcev0g'} 《
+》》 INFO     2025-07-16 16:56:51 [requests:72] :  >> 请求体 <<: {'id': None, 'name': 'new-demo', 'no': 99901, 'parentId': 0, 'remarks': '修改备注'} 《
+》》 ERROR    2025-07-16 16:56:51 [pytest_result_log:190] :  test status is FAILED (testCase/test_select_statistics.py::TestSupplierMaterial::test_add_material_category_valid[AddMaterialCategory]): TypeError 《
+》》 INFO     2025-07-16 16:56:51 [pytest_result_log:194] :  testCase/test_select_statistics.py::TestSupplierMaterial::test_add_material_category_valid[AddMaterialCategory] -> self = <auto_tester.testCase.test_select_statistics.TestSupplierMaterial object at 0x0000025E8A625410>
+api_params = {'id': None, 'name': 'new-demo', 'no': 99901, 'parentId': 0, ...}, all_api = <common.prepare_api.AllApi object at 0x0000025E8A60B510>
+
+    @pytest.mark.parametrize("api_params", ["AddMaterialCategory"], indirect=True)
+    def test_add_material_category_valid(self, api_params: dict, all_api: AllApi):
+        """
+        测试修改SCM材料分类接口
+        """
+        # 打印合并后的请求参数（供调试）
+        print("新增参数：", api_params)
+    
+        res = all_api.send_request("AddMaterialCategory")
+        expect = all_api.get_expect("AddMaterialCategory")
+    
+        # 断言
+>       assert res["code"] == expect["code"], (
+               ^^^^^^^^^^^
+            f"code: {res['code']}, 预期结果: {expect['code']}"
+        )
+E       TypeError: 'NoneType' object is not subscriptable
+
+testCase\test_select_statistics.py:51: TypeError 《
+》》 INFO     2025-07-16 16:56:51 [pytest_result_log:128] :  End: testCase/test_select_statistics.py::TestSupplierMaterial::test_add_material_category_valid[AddMaterialCategory] 《

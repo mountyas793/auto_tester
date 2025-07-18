@@ -1,6 +1,0 @@
-2025-07-16 16:56:51 - requests - prepare_logs.py - INFO - >> 接口地址 <<: post  http://192.168.0.3:8080/dev-api/dc-supplier-new/supplierMaterialBrand/addSupplierMaterial
-2025-07-16 16:56:51 - requests - prepare_logs.py - INFO - >> 请求头 <<: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxNTc1NzE1NzY2NzgyOTk2NDgyIiwicm5TdHIiOiJZb0dwaXN0VlkyWmhCN1ljUmJrMGZnUkpsbHdJc2x2aiIsIm1vYmlsZSI6IjE1MDk4MDEwNzA2In0.2odJEbErTOCnXEZ_5mNIArkYHV4PXfBcjJpjfhcev0g'}
-2025-07-16 16:56:51 - requests - prepare_logs.py - INFO - >> 请求体 <<: {'id': None, 'name': 'new-demo', 'no': 99901, 'parentId': 0, 'remarks': '修改备注'}
-ierMaterial
-2025-07-16 16:56:51 - requests - prepare_logs.py - INFO - >> 请求头 <<: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJzeXNfdXNlcjoxNTc1NzE1NzY2NzgyOTk2NDgyIiwicm5TdHIiOiJZb0dwaXN0VlkyWmhCN1ljUmJrMGZnUkpsbHdJc2x2aiIsIm1vYmlsZSI6IjE1MDk4MDEwNzA2In0.2odJEbErTOCnXEZ_5mNIArkYHV4PXfBcjJpjfhcev0g'}
-2025-07-16 16:56:51 - requests - prepare_logs.py - INFO - >> 请求体 <<: {'id': None, 'name': 'new-demo', 'no': 99901, 'parentId': 0, 'remarks': '修改备注'}

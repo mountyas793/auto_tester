@@ -57,18 +57,8 @@ def api_params(
     """
     # 获取参数化的API名称
     api_name = request.param
-    if not api_name:
-        raise ValueError("API名称不能为空，请通过parametrize传递api_name")
 
-    # 从YAML配置中获取API信息
-    api_config_data = api_config.get_info()
-    if api_name not in api_config_data:
-        raise ValueError(f"API {api_name} 不存在于YAML配置中")
-
-    # 处理YAML中的列表结构，取第一个测试用例配置
-    api_info = api_config_data[api_name]
-    if isinstance(api_info, list):
-        api_info = api_info[0]  # 取列表中的第一个元素
+    api_info = api_config.get_api_info(api_name)
 
     # 获取基础参数并合并共享数据
     base_params = api_info.get("data", {})
@@ -77,4 +67,10 @@ def api_params(
 
     # 合并共享数据（共享数据优先级更高）
     merged_params = {**base_params, **shared_data}
+
+    # 自动更新YAML配置缓存
+    api_config.set_data(api_name, merged_params)
+
+    # print("合并参数", merged_params)
+
     return merged_params

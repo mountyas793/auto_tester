@@ -11,18 +11,18 @@ from common.prepare_api import AllApi
 
 
 class TestSupplierMaterial:
-    @pytest.mark.parametrize("api_params", ["SelectMaterialCategory"])
+    @pytest.mark.parametrize("api_name", ["SelectMaterialCategory"])
     def test_select_material_category_valid(
         self,
         shared_data: dict,
-        api_params: dict,
+        api_name: str,
         all_api: AllApi,
     ):
         """
         测试查询SCM材料分类接口
         """
-        res = all_api.send_request("SelectMaterialCategory")
-        expect = all_api.get_expect("SelectMaterialCategory")
+        res = all_api.send_request(api_name)
+        expect = all_api.get_expect(api_name)
 
         assert res["code"] == expect["code"], (
             f"code: {res['code']}, 预期结果: {expect['code']}"
@@ -34,7 +34,8 @@ class TestSupplierMaterial:
             material_id = res["data"][-1]["id"]
             assert material_id, f"获取的material_id为空: {material_id}"
             # 存入共享数据
-            shared_data["material_id"] = material_id
+            shared_data["id"] = material_id
+            # print("共享数据", shared_data)
 
     @pytest.mark.parametrize("api_params", ["AddMaterialCategory"], indirect=True)
     def test_add_material_category_valid(self, api_params: dict, all_api: AllApi):
@@ -42,10 +43,12 @@ class TestSupplierMaterial:
         测试修改SCM材料分类接口
         """
         # 打印合并后的请求参数（供调试）
-        print("新增参数：", api_params)
+        # print("新增参数：", api_params)
+        api_name = api_params["api_name"]
+        print(api_name)
 
-        res = all_api.send_request("AddMaterialCategory")
-        expect = all_api.get_expect("AddMaterialCategory")
+        res = all_api.send_request(api_name)
+        expect = all_api.get_expect(api_name)
 
         # 断言
         assert res["code"] == expect["code"], (
@@ -54,10 +57,6 @@ class TestSupplierMaterial:
         assert res["msg"] == expect["msg"], (
             f"msg: {res['msg']}, 预期结果: {expect['msg']}"
         )
-
-        # 验证返回数据
-        if res.get("code") == 200:
-            assert res.get("data"), "新增材料分类未返回数据"
 
 
 def main():

@@ -5,65 +5,50 @@
 # @Date: 2025/07/03 11:02
 # @Desc: 接口集合yaml
 
+common:
+  url: &common_url "{{HOST}}"
+  headers: &default_headers # 公共header( 定义headers锚点 )
+    Content-Type: application/json
+    Authorization: "Bearer {{TOKEN}}"
+
 # SCM材料分类查询
 SelectMaterialCategory:
-  - name: SCM材料分类查询-成功
+  base:
     group: /dc-supplier-new
     method: get
-    url: /supplierMaterialBrand/selectSupplierMaterial
+    api: /supplierMaterialBrand/selectSupplierMaterial
     headers:
-      Content-Type: application/json
-      Authorization: "Bearer {{token}}"
-    expected:
-      code: 200
-      msg: 操作成功
+      <<: *default_headers # 引用公共header
+  cases:
+    success:
+      name: SCM材料分类查询-成功
+      expected: &success_expected
+        code: 200
+        msg: 操作成功
 
 # SCM-新增-材料分类
 AddMaterialCategory:
-  - name: SCM-新增-材料分类-成功
+  base:
     group: /dc-supplier-new
     method: post
-    url: /supplierMaterialBrand/addSupplierMaterial
+    api: /supplierMaterialBrand/addSupplierMaterial
     headers:
-      Content-Type: application/json
-      Authorization: "Bearer {{token}}"
-    data:
-      id:
-      name: new-demo
-      "no": 99901
-      parentId: 0
-      remarks: 修改备注
-    expected:
-      code: 200
-      msg: 操作成功
-
-  - name: SCM-新增-材料分类-失败
-    group: /dc-supplier-new
-    method: post
-    url: /supplierMaterialBrand/addSupplierMaterial
-    headers:
-      Content-Type: application/json
-      Authorization: "Bearer {{token}}"
-    data:
-      id: sadf
-      name: new-demo
-      "no": 99901
-      parentId: 0
-      remarks: 修改备注
-    expected:
-      code: 400
-      msg: 操作失败
-# # SCM删除材料分类
-# DeleteMaterialCategory:
-#   - name: SCM删除材料分类-成功
-#     group: /dc-supplier-new
-#     method: delete
-#     url: /supplierMaterialBrand/deleteSupplierMaterialBrand
-#     headers:
-#       Content-Type: application/json
-#       Authorization: "Bearer {{token}}"
-#     data:
-#       id: {{material_id}}
-#     expected:
-#       code: 200
-#       msg: 操作成功
+      <<: *default_headers # 引用公共header
+  cases:
+    success:
+      name: SCM-新增-材料分类-成功
+      data: &base_data
+        id:
+        name: new-demo
+        "no": 99901
+        parentId: 0
+        remarks: 修改备注
+      expected:
+        <<: *success_expected
+    invalid_id:
+      name: SCM-新增-材料分类-失败
+      data:
+        <<: *base_data # 合并基础数据
+        "no": # 仅覆盖差异化字段
+      expected: &fail_expected
+        code: 500

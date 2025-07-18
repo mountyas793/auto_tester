@@ -27,6 +27,12 @@ class YamlReader:
                 self._cache[self.yaml_file] = yaml.safe_load(f)
         return self._cache[self.yaml_file]
 
+    # yaml文件中的占位符替换逻辑
+    def _replace_placeholders(self, content):
+        for key, value in os.environ.items():
+            content = content.replace(f"{{{{{key}}}}}", value)
+        return content
+
     # 获取API配置信息，自动处理列表结构
     def get_api_info(self, api_name: str) -> dict:
         """
@@ -39,8 +45,10 @@ class YamlReader:
             raise ValueError(f"API {api_name} not found in YAML configuration")
 
         api_info = api_config[api_name]
-        if isinstance(api_info, list):
-            api_info = api_info[0]  # 取第一个测试用例配置
+
+        # 处理cases配置结构
+        if isinstance(api_info, dict) and "base" in api_info:
+            api_info = api_info["base"]
 
         if not isinstance(api_info, dict):
             raise ValueError(f"API {api_name} configuration is not a dict")
@@ -48,7 +56,23 @@ class YamlReader:
 
     # 添加通用配置获取方法
     def get_config_value(self, api_name: str, key: str, default: Any = None) -> Any:
+        """
+        获取配置值
+        :param api_name: API名称
+        :param key: 配置键
+        :param default: 默认值
+        :return: 配置值
+        """
         api_info = self.get_api_info(api_name)
+        # 尝试从cases中的第一个test case获取值
+        api_config = self._load_with_cache()
+        if key not in api_info and api_name in api_config:
+            test_cases = api_config[api_name].get("cases", {})
+            if test_cases and isinstance(test_cases, dict):
+                first_case = next(iter(test_cases.values()))
+                if isinstance(first_case, dict) and key in first_case:
+                    return first_case[key]
+
         return api_info.get(key, default)
 
     # 获取接口url
@@ -58,11 +82,11 @@ class YamlReader:
         :param api_name: 接口名称
         :return:
         """
-        api_group = self.get_config_value(api_name, "url")
+        api_group = self.get_config_value(api_name, "group")
         api_url = self.get_config_value(api_name, "url")
 
         if load_env:
-            host = os.environ.get("HOST")
+            host = self._replace_placeholders("{{HOST}}")
             base_url = "{}{}{}".format(host, api_group, api_url)
 
         return base_url
@@ -121,7 +145,6 @@ class YamlReader:
     def set_data(self, api_name: str, data: dict) -> None:
         """
         更新接口请求参数
-
         :param api_name: API名称
         :type api_name: str
         :param data: 新的请求参数
@@ -152,19 +175,16 @@ def main():
 
     dotenv.load_dotenv("config/.env")
     read_yaml = YamlReader("testData/api_config.yaml")
-    # # 测试get_info
-    # print(read_yaml.get_info()["AddMaterialCategory"])
+    # 测试_load_with_cache
+    # print(json.dumps(read_yaml._load_with_cache()))
+    # 测试get_api_info
+    # print(json.dumps(read_yaml.get_api_info("SelectMaterialCategory")))
+    # get_config_value
+    # print(read_yaml.get_config_value("SelectMaterialCategory", "group"))
     # 测试get_url
-    print(read_yaml.get_url("AddMaterialCategory"))
-    # # 测试get_method
-    # print(read_yaml.get_method("AddMaterialCategory"))
-    # # 测试get_headers
-    # print(json.dumps(read_yaml.get_headers("AddMaterialCategory"), ensure_ascii=False))
-    # # 测试get_expected
-    # print(json.dumps(read_yaml.get_expected("AddMaterialCategory"), ensure_ascii=False))
-    # # 测试get_data
-    # print(json.dumps(read_yaml.get_data("AddMaterialCategory"), ensure_ascii=False))
-    # pass
+    print(read_yaml.get_url("SelectMaterialCategory"))
+    # 测试_replace_placeholders
+    # print(read_yaml._replace_placeholders("{{TOKEN}}"))
 
 
 if __name__ == "__main__":

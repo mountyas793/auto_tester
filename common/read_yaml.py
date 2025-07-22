@@ -27,13 +27,18 @@ class YamlReader:
                 self._cache[self.yaml_file] = yaml.safe_load(f)
         return self._cache[self.yaml_file]
 
-    # yaml文件中的占位符替换逻辑
-    def _replace_placeholders(self, content):
-        for key, value in os.environ.items():
-            content = content.replace(f"{{{{{key}}}}}", value)
-        return content
+    def _replace_placeholders(self, obj: Any) -> Any:
+        """递归替换占位符"""
+        if isinstance(obj, str):
+            for key, value in os.environ.items():
+                obj = obj.replace(f"{{{{{key}}}}}", value)
+            return obj
+        elif isinstance(obj, dict):
+            return {k: self._replace_placeholders(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [self._replace_placeholders(item) for item in obj]
+        return obj
 
-    # 获取API配置信息，自动处理列表结构
     def get_api_info(self, api_name: str) -> dict:
         """
         获取API配置信息，自动处理列表结构
@@ -64,8 +69,10 @@ class YamlReader:
         :return: 配置值
         """
         api_info = self.get_api_info(api_name)
+
         # 尝试从cases中的第一个test case获取值
         api_config = self._load_with_cache()
+
         if key not in api_info and api_name in api_config:
             test_cases = api_config[api_name].get("cases", {})
             if test_cases and isinstance(test_cases, dict):
@@ -83,7 +90,7 @@ class YamlReader:
         :return:
         """
         api_group = self.get_config_value(api_name, "group")
-        api_url = self.get_config_value(api_name, "url")
+        api_url = self.get_config_value(api_name, "api")
 
         if load_env:
             host = self._replace_placeholders("{{HOST}}")
@@ -157,17 +164,18 @@ class YamlReader:
                 f"Expected dict type for data, got {type(data).__name__} instead"
             )
 
-        # 复用get_api_info处理配置获取和类型检查
-        api_info = self.get_api_info(api_name)
-        api_info["data"] = data
+        api_data = self.get_data(api_name)
+        api_data.update(data)
+        print("new_api_data", api_data)
 
         # 更新缓存（保持原数据结构）
-        api_config = self._load_with_cache()
-        if isinstance(api_config[api_name], list):
-            api_config[api_name][0] = api_info
-        else:
-            api_config[api_name] = api_info
-        self._cache[self.yaml_file] = api_config
+        api_config = self.get_api_info(api_name)
+        print("api_config", api_config)
+        # if isinstance(api_config[api_name], list):
+        #     api_config[api_name][0] = api_data
+        # else:
+        #     api_config[api_name] = api_data
+        # self._cache[self.yaml_file] = api_config
 
 
 def main():
@@ -178,13 +186,22 @@ def main():
     # 测试_load_with_cache
     # print(json.dumps(read_yaml._load_with_cache()))
     # 测试get_api_info
-    # print(json.dumps(read_yaml.get_api_info("SelectMaterialCategory")))
+    # print(json.dumps(read_yaml.get_api_info("AddMaterialCategory")))
     # get_config_value
-    # print(read_yaml.get_config_value("SelectMaterialCategory", "group"))
+    # print(read_yaml.get_config_value("AddMaterialCategory", "method"))
     # 测试get_url
-    print(read_yaml.get_url("SelectMaterialCategory"))
+    # print(read_yaml.get_url("AddMaterialCategory"))
     # 测试_replace_placeholders
-    # print(read_yaml._replace_placeholders("{{TOKEN}}"))
+    # print(read_yaml._replace_placeholders("{{HOST}}"))
+    # get_header
+    # print(read_yaml.get_headers("AddMaterialCategory"))
+    # get_data
+    # print(read_yaml.get_data("AddMaterialCategory"))
+    # get_expected
+    # print(read_yaml.get_expected("AddMaterialCategory"))
+    # set_data
+    read_yaml.set_data("AddMaterialCategory", {"no": None})
+    print(read_yaml.get_data("AddMaterialCategory"))
 
 
 if __name__ == "__main__":

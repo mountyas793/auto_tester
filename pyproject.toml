@@ -1,11 +1,17 @@
+# 打包配置
 [tool.setuptools.packages.find]
 where = ["."]  # 指定包目录
 include = ["common", "testCase"]  # 明确包含的包
 
+# 测试配置
+[tool.pytest.ini_options]
+testpaths = ["testCase"]
+pythonpath = ["."]
+
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 
-
+# 项目元数据
 [project]
 name = "auto-tester"
 version = "0.1.0"

@@ -71,6 +71,6 @@ def api_params(
     # 自动更新YAML配置缓存
     api_config.set_data(api_name, merged_params)
 
-    # print("合并参数", merged_params)
+    print("合并参数", merged_params)
 
     return merged_params

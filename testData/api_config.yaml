@@ -38,7 +38,7 @@ AddMaterialCategory:
     success:
       name: SCM-新增-材料分类-成功
       data: &base_data
-        id:
+        id: null
         name: new-demo
         "no": 99901
         parentId: 0
@@ -49,6 +49,6 @@ AddMaterialCategory:
       name: SCM-新增-材料分类-失败
       data:
         <<: *base_data # 合并基础数据
-        "no": # 仅覆盖差异化字段
+        "no": null # 仅覆盖差异化字段
       expected: &fail_expected
         code: 500

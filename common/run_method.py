@@ -6,6 +6,7 @@
 # @Desc: 封装requests请求方法
 
 import requests
+
 from common.prepare_logs import PrepareLogs
 
 
@@ -64,6 +65,7 @@ class RunMethod(object):
             res = self.get_main(url, headers, data)
         else:
             raise ValueError("不支持的请求方法")
+            self.prepare_logs.log_error("不支持的请求方法")
         self.prepare_logs.log_request(method, url, headers, data)
         self.prepare_logs.log_response(res.status_code, res.headers, res.json())
         return res.json()

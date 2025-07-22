@@ -43,7 +43,7 @@ class AllApi(object):
             return res
 
         except Exception as e:
-            print("接口访问出错啦~ {}".format(e))
+            self.prepare_logs.log_error("接口访问出错啦~ {}".format(e))
             return None
 
     def get_expect(self, api_name: str) -> dict:
@@ -57,9 +57,10 @@ class AllApi(object):
             expect = self.api_config.get_expected(api_name)
             if expect is None:
                 raise ValueError("接口 {} 的预期结果为空".format(api_name))
+                self.prepare_logs.log_error("接口 {} 的预期结果为空".format(api_name))
             return expect
         except Exception as e:
-            print("获取预期结果出错啦~ {}".format(e))
+            self.prepare_logs.log_error("获取预期结果出错啦~ {}".format(e))
             return None
 
     def set_data(self, api_name: str, key: str, value: str):
@@ -75,11 +76,12 @@ class AllApi(object):
             data = self.api_config.get_data(api_name)
             if data is None:
                 raise ValueError("接口 {} 的请求参数为空".format(api_name))
+                self.prepare_logs.log_error("接口 {} 的请求参数为空".format(api_name))
             # 设置参数值
             data[key] = value
             self.api_config.set_data(api_name, data)
         except Exception as e:
-            print("设置接口请求参数出错啦~ {}".format(e))
+            self.prepare_logs.log_error("设置接口请求参数出错啦~ {}".format(e))
 
 
 def main():

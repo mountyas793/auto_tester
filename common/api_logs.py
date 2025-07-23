@@ -1,17 +1,15 @@
-# logger.py  —— 只负责记录
+# api_logs.py  （保持无耦合，只改日志器）
 import json
 import logging
 import os
 from logging.handlers import TimedRotatingFileHandler
 from typing import Any, Dict
 
-from requests import Response
 
+class RequestLogger:
+    """单例 Request 日志器"""
 
-class HttpLogger:
-    """HTTP 日志器"""
-
-    _instance = None  # 单例，防止重复创建 logger
+    _instance = None
 
     def __new__(cls, log_dir="logs", log_name="requests", backup_days=7, console=True):
         if cls._instance is None:
@@ -22,13 +20,14 @@ class HttpLogger:
     # ---------- 内部 ----------
     def _setup(self, log_dir, log_name, backup_days, console):
         self.logger = logging.getLogger("HttpLogger")
-        if self.logger.handlers:  # 已配置过
+        if self.logger.handlers:
             return
 
         self.logger.setLevel(logging.INFO)
         fmt = "%(asctime)s [%(levelname)s] %(message)s"
         formatter = logging.Formatter(fmt, datefmt="%Y-%m-%d %H:%M:%S")
 
+        # 控制台输出
         if console:
             ch = logging.StreamHandler()
             ch.setFormatter(formatter)
@@ -36,7 +35,7 @@ class HttpLogger:
 
         os.makedirs(log_dir, exist_ok=True)
         fh = TimedRotatingFileHandler(
-            filename=os.path.join(log_dir, f"{log_name}.log"),
+            os.path.join(log_dir, f"{log_name}.log"),
             when="midnight",
             interval=1,
             backupCount=backup_days,
@@ -45,45 +44,28 @@ class HttpLogger:
         fh.setFormatter(formatter)
         self.logger.addHandler(fh)
 
-    # ---------- 供外部调用的唯一方法 ----------
-    def log_round_trip(self, case_spec: Dict[str, Any], response: Response):
-        """记录一次完整的请求+响应"""
-        self.logger.info("=" * 50)
-        # 记录请求
+    # ---------- 对外 ----------
+    def log_request(
+        self, method: str, url: str, headers: Dict[str, Any], body: Any = None
+    ):
         self.logger.info(
             ">>> %s请求%s\n%s %s\nHeaders: %s\nBody: %s",
-            "- " * 5,
-            "- " * 5,
-            case_spec["method"],
-            case_spec["url"],
-            json.dumps(case_spec.get("headers", {}), ensure_ascii=False),
-            json.dumps(case_spec.get("body", {}), ensure_ascii=False),
+            "".join(["- " for _ in range(10)]),
+            "".join(["- " for _ in range(10)]),
+            method,
+            url,
+            json.dumps(headers, ensure_ascii=False),
+            json.dumps(body, ensure_ascii=False),
         )
 
-        self.logger.info("=" * 50)
-        # 记录响应
+    def log_response(self, status: int, headers: Dict[str, Any], message: Any):
         self.logger.info(
             "<<< %s响应%s\nStatus: %s\nHeaders: %s\nBody: %s",
-            "- " * 5,
-            "- " * 5,
-            response.status_code,
-            json.dumps(response.headers or {}, ensure_ascii=False),
-            json.dumps(response.json(), ensure_ascii=False)
-            if isinstance(response.json(), (dict, list))
-            else str(response.json()),
+            "".join(["- " for _ in range(10)]),
+            "".join(["- " for _ in range(10)]),
+            status,
+            json.dumps(headers, ensure_ascii=False),
+            json.dumps(message, ensure_ascii=False)
+            if isinstance(message, (dict, list))
+            else str(message),
         )
-
-
-if __name__ == "__main__":
-    import requests
-
-    logger = HttpLogger()
-    case_spec = {
-        "name": "获取用户信息",
-        "method": "GET",
-        "url": "https://www.baidu.com",
-        "headers": {"User-Agent": "Python/3.11"},
-    }
-    response = requests.get(case_spec["url"], headers=case_spec["headers"])
-    logger.log_round_trip(case_spec, response)
-    print(response.json())

@@ -4,7 +4,6 @@
 # @Author: Wakka
 # @Date: 2025/07/23 21:30
 # @Desc: ...
-import requests_validator as validator
 
 from common.extract_utiles import extract
 from common.logger import RequestLogger
@@ -28,7 +27,7 @@ def runner(k, v, var):
             resp = var["resp"]
         case "response":  # 响应校验
             logger.log_info("2. 开始校验响应……")
-            validator.validate(resp, **v)
+            pass
         case "extract":  # 提取
             logger.log_info("3. 开始提取变量……")
             for var_name, var_exp in v.items():

@@ -1,24 +1,12 @@
 ---
-common:
-  url: &common_url "{{HOST}}"
-  headers: &default_headers
-    Content-Type: application/json
-    Authorization: "Bearer {{TOKEN}}"
-  group:
-    dc-admin: &dc-admin "/dc-admin"
-    dc-project: &dc-project "/dc-project"
-    dc-project-new: &dc-project-new "/dc-project-new"
-    dc-supplier-new: &dc-supplier-new "/dc-supplier-new"
-    dc-supplier: &dc-supplier "/dc-supplier"
-
----
 name: 线索管理查询-成功
 steps:
     - request:
         method: post
-        url: "{{*common_url}}{{*dc-project}}/crmcustom/selectCrmCluePage"
-        headers:
-          <<: *default_headers
+        url: "{{HOST}}/dc-project/crmcustom/selectCrmCluePage"
+        headers: &default_headers
+          Content-Type: application/json
+          Authorization: "Bearer {{TOKEN}}"
         body:
             pageNum: 1
             pageSize: 10

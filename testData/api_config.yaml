@@ -7,13 +7,34 @@
 
 common:
   url: &common_url "{{HOST}}"
-  headers: &default_headers # 公共header( 定义headers锚点 )
+  headers: &default_headers
     Content-Type: application/json
     Authorization: "Bearer {{TOKEN}}"
+
+# 线索管理查询
+selectCrmCluePage:
+  base:
+    base_url: *common_url
+    group: /dc-project
+    method: post
+    api: /crmcustom/selectCrmCluePage
+    headers:
+      <<: *default_headers # 引用公共header
+  cases:
+    success:
+      name: 线索管理查询-成功
+      data:
+        pageNum: 1
+        pageSize: 10
+        translate: 0
+      expected: &success_expected
+        code: 200
+        msg: 成功
 
 # SCM材料分类查询
 SelectMaterialCategory:
   base:
+    base_url: *common_url
     group: /dc-supplier-new
     method: get
     api: /supplierMaterialBrand/selectSupplierMaterial
@@ -22,13 +43,13 @@ SelectMaterialCategory:
   cases:
     success:
       name: SCM材料分类查询-成功
-      expected: &success_expected
-        code: 200
-        msg: 操作成功
+      expected:
+        <<: *success_expected
 
 # SCM-新增-材料分类
 AddMaterialCategory:
   base:
+    base_url: *common_url
     group: /dc-supplier-new
     method: post
     api: /supplierMaterialBrand/addSupplierMaterial

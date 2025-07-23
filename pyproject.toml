@@ -20,6 +20,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "allure-pytest>=2.14.3",
+    "jsonpath>=0.82.2",
     "pytest>=8.4.1",
     "pytest-result-log>=1.2.2",
     "python-dotenv>=1.1.1",

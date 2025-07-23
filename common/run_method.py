@@ -34,6 +34,8 @@ class HttpSession:
             data=None if isinstance(body, (dict, list)) else body,
             timeout=10,
         )
+        # 调试
+        # print(resp.text)
 
         # 记录响应
         try:
@@ -46,12 +48,24 @@ class HttpSession:
 
 
 if __name__ == "__main__":
+    import dotenv
+
+    from common.read_yaml import get_case
+
+    dotenv.load_dotenv("config/.env")
+
+    case = get_case("selectCrmCluePage", "success")
     session = HttpSession()
-    resp = session.send(
-        {
-            "method": "post",
-            "url": "https://www.baidu.com",
-            "headers": {"Content-Type": "application/json"},
-            "body": {"name": "张三"},
-        }
-    )
+    resp = session.send(case)
+    try:
+        if resp.status_code == 200:
+            try:
+                print(resp.json())
+            except ValueError:
+                print("响应不是有效的JSON格式:")
+                print(resp.text)
+        else:
+            print(f"请求失败，状态码: {resp.status_code}")
+            print(resp.text)
+    except Exception as e:
+        print(f"发生错误: {e}")

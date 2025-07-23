@@ -1,0 +1,35 @@
+---
+common:
+  url: &common_url "{{HOST}}"
+  headers: &default_headers
+    Content-Type: application/json
+    Authorization: "Bearer {{TOKEN}}"
+  group:
+    dc-admin: &dc-admin "/dc-admin"
+    dc-project: &dc-project "/dc-project"
+    dc-project-new: &dc-project-new "/dc-project-new"
+    dc-supplier-new: &dc-supplier-new "/dc-supplier-new"
+    dc-supplier: &dc-supplier "/dc-supplier"
+
+---
+name: 线索管理查询-成功
+steps:
+    - request:
+        method: post
+        url: "{{*common_url}}{{*dc-project}}/crmcustom/selectCrmCluePage"
+        headers:
+          <<: *default_headers
+        body:
+            pageNum: 1
+            pageSize: 10
+            translate: 0
+
+    - response:
+        status_code: 200
+        body:
+          code: 200
+          msg: 成功
+
+    # - extract:
+    #     json_path: "$.data.records[0].id"
+    #     variable: "clue_id"

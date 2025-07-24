@@ -10,7 +10,11 @@ wheels/
 .venv
 .trae
 
+# 日志
+logs/
+
 # 测试报告
 allure-results
+
 # 测试报告html
-allure-report
+report/

@@ -38,10 +38,10 @@ class CommonLogger:
         formatter = logging.Formatter(fmt, datefmt="%Y-%m-%d %H:%M:%S")
 
         # 控制台输出
-        if console:
-            ch = logging.StreamHandler()
-            ch.setFormatter(formatter)
-            self.logger.addHandler(ch)
+        # if console:
+        #     ch = logging.StreamHandler()
+        #     ch.setFormatter(formatter)
+        #     self.logger.addHandler(ch)
 
         os.makedirs(log_dir, exist_ok=True)
         fh = TimedRotatingFileHandler(

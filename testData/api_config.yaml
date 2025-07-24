@@ -13,10 +13,8 @@ steps:
         translate: 0
 
   - response:
-      status_code: 200
-      body:
-        code: 200
-        msg: 成功
+      code: 200
+      msg: 成功
 
   # - extract:
   #     json_path: "$.data.records[0].id"

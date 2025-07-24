@@ -36,7 +36,7 @@ def extract(resp, attr_name, exp):
 
 if __name__ == "__main__":
     import dotenv
-    from common.run_method import HttpSession
+    from .common.http_client import HttpClient
 
     dotenv.load_dotenv("config/.env")
 
@@ -49,8 +49,8 @@ if __name__ == "__main__":
         },
         "body": {"pageNum": 1, "pageSize": 10, "translate": 0},
     }
-    session = HttpSession()
-    resp = session.send(case_spec)
+    session = HttpClient()
+    resp = session.send_request(**case_spec)
     # try:
     #     if resp.status_code == 200:
     #         try:

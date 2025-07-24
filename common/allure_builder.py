@@ -35,8 +35,8 @@ def build_allure_report(data, res):
 
 
 if __name__ == "__main__":
-    from case_reader import case_read
-    from config_reader import ConfigReader
+    from .case_reader import case_read
+    from .config_reader import ConfigReader
 
     data = case_read()
 

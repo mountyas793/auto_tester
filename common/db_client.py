@@ -6,8 +6,8 @@
 # @Desc: 数据库客户端，用于连接数据库、执行 SQL 语句、获取结果等。
 
 import pymysql
-from common_logger import CommonLogger
-from config_reader import ConfigReader
+from .common_logger import CommonLogger
+from .config_reader import ConfigReader
 
 
 class DbClient:

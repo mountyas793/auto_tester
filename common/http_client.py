@@ -9,7 +9,8 @@
 from typing import Any, Dict
 
 import requests
-from http_logger import HttpLogger
+
+from .common_logger import CommonLogger as HttpLogger
 
 
 class HttpClient(object):
@@ -54,14 +55,14 @@ class HttpClient(object):
         #     f"[DEBUG] 响应状态码：{resp.status_code}\n响应头：{dict(resp.headers)}\n响应体：{resp_json}"
         # )
 
-        return resp_json
+        return resp
 
 
 if __name__ == "__main__":
     import dotenv
 
     dotenv.load_dotenv("config/.env")
-    from yaml_utils import _load_yaml, _replace_env
+    from ..utils.yaml_utils import _load_yaml, _replace_env
 
     data = _replace_env(_load_yaml("testData/test_api.yaml")["steps"][0]["request"])
     session = HttpClient()

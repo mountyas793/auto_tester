@@ -8,7 +8,7 @@
 from functools import lru_cache
 
 import yaml
-from path_tools import get_project_path, sep
+from .path_tools import get_project_path, sep
 
 
 class ConfigReader:

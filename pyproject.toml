@@ -1,7 +1,7 @@
 # 打包配置
 [tool.setuptools.packages.find]
 where = ["."]  # 指定包目录
-include = ["utils", "testCases"]  # 明确包含的包
+include = ["commom", "testCases"]  # 明确包含的包
 
 # 测试配置
 [tool.pytest.ini_options]

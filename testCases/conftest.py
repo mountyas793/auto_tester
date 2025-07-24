@@ -8,9 +8,16 @@
 import os
 
 import pytest
+from dotenv import load_dotenv
 
-from common.case_reader import case_read
-from common.db_client import DbClient
+from ..common.case_reader import case_read
+from ..common.db_client import DbClient
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _load_dotenv():
+    # 加载环境变量
+    load_dotenv("config/.env")
 
 
 @pytest.fixture(scope="session")

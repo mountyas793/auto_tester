@@ -5,22 +5,20 @@
 # @Date: 2025/07/23 20:31
 # @Desc: 测试用例，用于测试接口，根据测试用例的yaml文件，调用运行器，实现不同的功能
 import allure
-import pytest
-from conftest import test_data
 
-from utils.runner_utils import runner
+from ..utils.runner_utils import runner
+from .conftest import test_data
 
 
-@pytest.mark.parametrize("test_yaml", ["test_api.yaml"])
-def test_yaml(data: test_data):
+def test_yaml(test_data):
     resp = {}
-    allure.title(data["name"])
+    allure.title(test_data["name"])
 
-    for step in data["steps"]:
+    for step in test_data["steps"]:
         print(step)
         for step_name, case_data in step.items():
             runner(step_name, case_data, resp)
 
 
 if __name__ == "__main__":
-    test_yaml()
+    test_yaml(test_data)

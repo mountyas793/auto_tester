@@ -6,15 +6,14 @@
 # @Desc: 测试用例，用于测试接口，根据测试用例的yaml文件，调用运行器，实现不同的功能
 import allure
 import pytest
+from conftest import test_data
 
 from utils.runner_utils import runner
-from utils.yaml_utils import yaml_read
 
 
 @pytest.mark.parametrize("test_yaml", ["test_api.yaml"])
-def test_yaml():
+def test_yaml(data: test_data):
     resp = {}
-    data = yaml_read(test_yaml)
     allure.title(data["name"])
 
     for step in data["steps"]:

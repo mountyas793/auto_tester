@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 # @Project: auto_tester
-# @File: requests_utils.py
+# @File: http_client.py
 # @Author: Wakka
-# @Date: 2025/07/24 09:45
+# @Date: 2025/07/24 15:07
 # @Desc: 封装 requests 库，提供更方便的接口
+
 
 from typing import Any, Dict
 
 import requests
-from logs_utils import LoggerUtils
+from http_logger import HttpLogger
 
 
-class RequestsUtils(object):
+class HttpClient(object):
     def __init__(self):
         self.session = requests.Session()
-        self.logger = LoggerUtils()  # 单例
+        self.logger = HttpLogger()  # 单例
 
     def send_request(self, **kwargs: Dict[str, Any]) -> requests.Response:
         """
@@ -42,8 +43,6 @@ class RequestsUtils(object):
             data=None if isinstance(body, (dict, list)) else body,
             timeout=10,
         )
-        # 调试
-        # print(resp.text)
 
         # 记录响应
         try:
@@ -65,5 +64,5 @@ if __name__ == "__main__":
     from yaml_utils import _load_yaml, _replace_env
 
     data = _replace_env(_load_yaml("testData/test_api.yaml")["steps"][0]["request"])
-    session = RequestsUtils()
+    session = HttpClient()
     resp = session.send_request(**data)

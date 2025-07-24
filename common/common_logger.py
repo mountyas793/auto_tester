@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # @Project: auto_tester
-# @File: logs_utils.py
+# @File: common_logger.py
 # @Author: Wakka
 # @Date: 2025/07/24 13:48
-# @Desc: 日志器，用于记录请求和响应的日志
+# @Desc: 通用日志器，用于记录系统运行日志、错误日志等。
 
 
 import json
@@ -13,8 +13,8 @@ from logging.handlers import TimedRotatingFileHandler
 from typing import Any, Dict
 
 
-class LoggerUtils:
-    """单例 Request 日志器"""
+class CommonLogger:
+    """单例 通用日志器"""
 
     # 单例实例
     _instance = None
@@ -29,7 +29,7 @@ class LoggerUtils:
     # ---------- 内部 ----------
     def _setup(self, log_dir, log_name, backup_days, console):
         """初始化日志器"""
-        self.logger = logging.getLogger("HttpLogger")
+        self.logger = logging.getLogger("CommonLogger")
         if self.logger.handlers:
             return
 
@@ -38,10 +38,10 @@ class LoggerUtils:
         formatter = logging.Formatter(fmt, datefmt="%Y-%m-%d %H:%M:%S")
 
         # 控制台输出
-        # if console:
-        #     ch = logging.StreamHandler()
-        #     ch.setFormatter(formatter)
-        #     self.logger.addHandler(ch)
+        if console:
+            ch = logging.StreamHandler()
+            ch.setFormatter(formatter)
+            self.logger.addHandler(ch)
 
         os.makedirs(log_dir, exist_ok=True)
         fh = TimedRotatingFileHandler(

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 # @Project: auto_tester
-# @File: yaml_utils.py
+# @File: case_reader.py
 # @Author: Wakka
-# @Date: 2025/07/23 20:11
-# @Desc: 读取yaml文件，替换环境变量，返回字典
-
+# @Date: 2025/07/24 14:24
+# @Desc: 读取测试用例yaml文件，替换环境变量，返回字典
 import os
 from functools import lru_cache
 
@@ -31,12 +30,12 @@ def _replace_env(obj):
     return obj
 
 
-def yaml_read(path: str = "testData/api_config.yaml") -> dict:
-    """读取yaml文件，替换环境变量，返回字典"""
+def case_read(path: str = "testData/api_config.yaml") -> dict:
+    """读取yaml文件, 替换环境变量, 返回字典"""
     data = _load_yaml(path)
     return _replace_env(data)
 
 
 if __name__ == "__main__":
-    data = yaml_read()
+    data = case_read()
     print(data)

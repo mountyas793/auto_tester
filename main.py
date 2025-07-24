@@ -6,5 +6,10 @@
 # @Desc: ...
 import os
 
+import dotenv
+
+dotenv.load_dotenv("config/.env")
+
+
 # 生成测试报告
 os.system("allure generate -c -o report --clean")

@@ -44,6 +44,7 @@ source = { editable = "." }
 dependencies = [
     { name = "allure-pytest" },
     { name = "jsonpath" },
+    { name = "pymysql" },
     { name = "pytest" },
     { name = "pytest-html" },
     { name = "pytest-result-log" },
@@ -56,6 +57,7 @@ dependencies = [
 requires-dist = [
     { name = "allure-pytest", specifier = ">=2.14.3" },
     { name = "jsonpath", specifier = ">=0.82.2" },
+    { name = "pymysql", specifier = ">=1.1.1" },
     { name = "pytest", specifier = ">=8.4.1" },
     { name = "pytest-html", specifier = ">=4.1.1" },
     { name = "pytest-result-log", specifier = ">=1.2.2" },
@@ -239,6 +241,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/b0/77/a5b8c569bf593b0140bde72ea885a803b82086995367bf2037de0159d924/pygments-2.19.2.tar.gz", hash = "sha256:636cb2477cec7f8952536970bc533bc43743542f70392ae026374600add5b887", size = 4968631 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c7/21/705964c7812476f378728bdf590ca4b771ec72385c533964653c68e86bdc/pygments-2.19.2-py3-none-any.whl", hash = "sha256:86540386c03d588bb81d44bc3928634ff26449851e99741617ecb9037ee5ec0b", size = 1225217 },
+]
+
+[[package]]
+name = "pymysql"
+version = "1.1.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/8f/ce59b5e5ed4ce8512f879ff1fa5ab699d211ae2495f1adaa5fbba2a1eada/pymysql-1.1.1.tar.gz", hash = "sha256:e127611aaf2b417403c60bf4dc570124aeb4a57f5f37b8e95ae399a42f904cd0", size = 47678 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0c/94/e4181a1f6286f545507528c78016e00065ea913276888db2262507693ce5/PyMySQL-1.1.1-py3-none-any.whl", hash = "sha256:4de15da4c61dc132f4fb9ab763063e693d521a80fd0e87943b9a453dd4c19d6c", size = 44972 },
 ]
 
 [[package]]

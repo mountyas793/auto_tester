@@ -1,1 +1,11 @@
-HOST = http://192.168.0.87:8080/dev-api
+---
+host:
+  dev: http://192.168.0.87:8080/dev-api
+  prod: https://www.cndachang.top/prod-api
+
+mysql:
+  host: 192.168.0.220
+  port: 3306
+  user: root
+  password: 123456
+  database: dc_oa_plus

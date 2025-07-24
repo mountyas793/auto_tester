@@ -6,19 +6,19 @@
 # @Desc: ...
 import allure
 
-from common.runner_utiles import runner
-from common.yaml_utiles import load_yaml
+from utils.runner_utiles import runner
+from utils.yaml_utiles import read_yaml
 
 
 def test_yaml():
-    my_var = {}
-    data = load_yaml("testData/test_api.yaml")
+    resp = {}
+    data = read_yaml()
     allure.title(data["name"])
 
     for step in data["steps"]:
         print(step)
-        for k, v in step.items():
-            runner(k, v, my_var)
+        for step_name, case_data in step.items():
+            runner(step_name, case_data, resp)
 
 
 if __name__ == "__main__":

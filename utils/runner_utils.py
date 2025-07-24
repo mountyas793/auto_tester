@@ -5,9 +5,9 @@
 # @Date: 2025/07/23 21:30
 # @Desc: ...
 
-from common.extract_utiles import extract
-from common.logger import RequestLogger
-from common.run_method import HttpSession
+from extract_utils import extract
+from logs_utils import LoggerUtils
+from requests_utils import RequestsUtils
 
 
 def runner(k, v, var):
@@ -18,27 +18,40 @@ def runner(k, v, var):
     :param var: 变量
     :return:
     """
-    logger = RequestLogger()
+    logger = LoggerUtils()
     resp = None
     match k:
         case "request":  # 请求
             logger.log_info("1. 开始发送请求……")
-            var["resp"] = HttpSession().send(**v)
+            # print("1. 开始发送请求……")
+            var["resp"] = RequestsUtils().send_request(**v)
             resp = var["resp"]
         case "response":  # 响应校验
             logger.log_info("2. 开始校验响应……")
-            pass
+            # print("2. 开始校验响应……")
+            assert resp.status_code == v["code"]
+            assert resp.json()["msg"] == v["msg"]
         case "extract":  # 提取
             logger.log_info("3. 开始提取变量……")
+            # print("3. 开始提取变量……")
             for var_name, var_exp in v.items():
                 value = extract(resp, *var_exp)
                 logger.log_info(f"3.1 提取变量 {var_name} 的值为：{value}")
+                # print(f"3.1 提取变量 {var_name} 的值为：{value}")
                 var[var_name] = value
 
 
 if __name__ == "__main__":
+    import dotenv
+
+    dotenv.load_dotenv("config/.env")
+    from yaml_utils import _load_yaml, _replace_env
+
+    data = _replace_env(_load_yaml("testData/test_api.yaml")["steps"][0]["request"])
     var = {}
-    runner("request", {"url": "https://www.baidu.com"}, var)
-    runner("response", {"status_code": 200}, var)
-    runner("extract", {"content": ["json", "$.content"]}, var)
-    print(var)
+    runner(
+        "request",
+        data,
+        var,
+    )
+    # print(var["resp"].json()["msg"])

@@ -8,6 +8,8 @@
 import pytest
 from dotenv import load_dotenv
 
+from utils.yaml_utils import yaml_to_dict
+
 
 @pytest.fixture(scope="session", autouse=True)
 def load_env() -> None:
@@ -16,3 +18,12 @@ def load_env() -> None:
     :return:
     """
     load_dotenv("config/.env")
+
+
+@pytest.fixture(scope="session")
+def test_data() -> dict:
+    """
+    加载测试数据
+    :return:
+    """
+    return yaml_to_dict()

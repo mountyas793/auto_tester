@@ -15,7 +15,6 @@ def test_yaml(test_data):
     allure.title(test_data["name"])
 
     for step in test_data["steps"]:
-        print(step)
         for step_name, case_data in step.items():
             runner(step_name, case_data, resp)
 

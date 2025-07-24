@@ -6,10 +6,5 @@
 # @Desc: ...
 import os
 
-from dotenv import load_dotenv
-
-# 加载.env文件中的环境变量
-load_dotenv("config/.env")
-
 # 生成测试报告
 os.system("allure generate -c -o report --clean")

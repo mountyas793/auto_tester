@@ -3,7 +3,7 @@
 # @File: extract_utiles.py
 # @Author: Wakka
 # @Date: 2025/07/23 21:37
-# @Desc: ...
+# @Desc: 提取器，用于从响应中提取数据
 import jsonpath as jsp
 
 
@@ -36,7 +36,6 @@ def extract(resp, attr_name, exp):
 
 if __name__ == "__main__":
     import dotenv
-
     from common.run_method import HttpSession
 
     dotenv.load_dotenv("config/.env")

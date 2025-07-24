@@ -1,4 +1,11 @@
-# api_logs.py  （保持无耦合，只改日志器）
+# -*- coding: utf-8 -*-
+# @Project: auto_tester
+# @File: logs_utils.py
+# @Author: Wakka
+# @Date: 2025/07/24 13:48
+# @Desc: 日志器，用于记录请求和响应的日志
+
+
 import json
 import logging
 import os

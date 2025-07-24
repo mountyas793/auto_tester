@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # @Project: auto_tester
-# @File: yaml_utiles.py
+# @File: yaml_utils.py
 # @Author: Wakka
 # @Date: 2025/07/23 20:11
-# @Desc: ...
+# @Desc: 读取yaml文件，替换环境变量，返回字典
 
 import os
 from functools import lru_cache
@@ -12,7 +12,7 @@ import yaml
 
 
 @lru_cache(maxsize=1)
-def _load_yaml(path: str = "testData/test_api.yaml") -> dict:
+def _load_yaml(path: str = "testData/api_config.yaml") -> dict:
     """只读一次，缓存结果"""
     with open(path, encoding="utf-8") as f:
         return yaml.safe_load(f)  # 锚点/别名自动展开
@@ -31,12 +31,12 @@ def _replace_env(obj):
     return obj
 
 
-def read_yaml(path: str = "testData/test_api.yaml") -> dict:
+def yaml_read(path: str = "testData/api_config.yaml") -> dict:
     """读取yaml文件，替换环境变量，返回字典"""
     data = _load_yaml(path)
     return _replace_env(data)
 
 
 if __name__ == "__main__":
-    data = read_yaml()
+    data = yaml_read()
     print(data)

@@ -1,75 +1,23 @@
-# -*- coding: utf-8 -*-
-# @Project: auto_tester
-# @File: app_config.yaml
-# @Author: Wakka
-# @Date: 2025/07/03 11:02
-# @Desc: 接口集合yaml
-
-common:
-  url: &common_url "{{HOST}}"
-  headers: &default_headers
-    Content-Type: application/json
-    Authorization: "Bearer {{TOKEN}}"
-
-# 线索管理查询
-selectCrmCluePage:
-  base:
-    base_url: *common_url
-    group: /dc-project
-    method: post
-    api: /crmcustom/selectCrmCluePage
-    headers:
-      <<: *default_headers # 引用公共header
-  cases:
-    success:
-      name: 线索管理查询-成功
-      data:
+---
+name: 线索管理查询-成功
+steps:
+  - request:
+      method: post
+      url: "{{HOST}}/dc-project/crmcustom/selectCrmCluePage"
+      headers: &default_headers
+        Content-Type: application/json
+        Authorization: "Bearer {{TOKEN}}"
+      body:
         pageNum: 1
         pageSize: 10
         translate: 0
-      expected: &success_expected
+
+  - response:
+      status_code: 200
+      body:
         code: 200
         msg: 成功
 
-# SCM材料分类查询
-SelectMaterialCategory:
-  base:
-    base_url: *common_url
-    group: /dc-supplier-new
-    method: get
-    api: /supplierMaterialBrand/selectSupplierMaterial
-    headers:
-      <<: *default_headers # 引用公共header
-  cases:
-    success:
-      name: SCM材料分类查询-成功
-      expected:
-        <<: *success_expected
-
-# SCM-新增-材料分类
-AddMaterialCategory:
-  base:
-    base_url: *common_url
-    group: /dc-supplier-new
-    method: post
-    api: /supplierMaterialBrand/addSupplierMaterial
-    headers:
-      <<: *default_headers # 引用公共header
-  cases:
-    success:
-      name: SCM-新增-材料分类-成功
-      data: &base_data
-        id: null
-        name: new-demo
-        "no": 99901
-        parentId: 0
-        remarks: 修改备注
-      expected:
-        <<: *success_expected
-    invalid_id:
-      name: SCM-新增-材料分类-失败
-      data:
-        <<: *base_data # 合并基础数据
-        "no": null # 仅覆盖差异化字段
-      expected: &fail_expected
-        code: 500
+  # - extract:
+  #     json_path: "$.data.records[0].id"
+  #     variable: "clue_id"

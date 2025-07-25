@@ -7,17 +7,23 @@
 import allure
 
 from ..utils.runner_utils import runner
-from .conftest import test_data
 
 
-def test_yaml(test_data):
+@allure.description("线索管理列表查询-成功")
+@allure.epic("CRM系统")
+@allure.feature("线索管理")
+@allure.story("数据查询")
+@allure.tag("查询")
+def test_selectCrmCluePage(test_data):
     resp = {}
     allure.title(test_data["name"])
 
     for step in test_data["steps"]:
         for step_name, case_data in step.items():
-            runner(step_name, case_data, resp)
+            print(f"step_name: {step_name}")
+            with allure.step(step_name):
+                runner(step_name, case_data, resp)
 
 
 if __name__ == "__main__":
-    test_yaml(test_data)
+    pass

@@ -12,4 +12,7 @@ dotenv.load_dotenv("config/.env")
 
 
 # 生成测试报告
-os.system("allure generate -c -o report --clean")
+if __name__ == "__main__":
+    os.system("pytest -s -v testCases/ --alluredir=report/allure-results")
+    os.system("allure generate  report -o report/allure-results")
+    os.system("allure open report/allure-results")

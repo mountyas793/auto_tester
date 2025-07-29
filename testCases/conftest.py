@@ -5,14 +5,14 @@
 # @Date: 2025/07/03 10:04
 # @Desc: 配置文件
 
-import os
 
 import pytest
 from dotenv import load_dotenv
 
 from ..common.case_reader import case_read
-from ..common.db_client import DbClient
 from ..common.config_reader import ConfigReader
+from ..common.db_client import DbClient
+
 
 @pytest.fixture(scope="session", autouse=True)
 def _load_dotenv():
@@ -31,12 +31,20 @@ def db_client() -> DbClient:
     """创建数据库客户端"""
     return DbClient()
 
+
 @pytest.fixture(scope="session")
 def config_reader() -> ConfigReader:
     """创建配置读取器"""
     return ConfigReader()
 
+
 @pytest.fixture(scope="session")
 def log_config(config_reader) -> dict:
     """获取日志配置"""
     return config_reader.get_log_config()
+
+
+@pytest.fixture(scope="session")
+def env_config() -> dict:
+    """获取环境配置"""
+    return config_reader.get_env_config()

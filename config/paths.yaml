@@ -23,7 +23,7 @@ test_paths:
 # 日志和报告路径
 reporting:
   logs: "${base.root}/logs" # 日志目录
-  allure_results: "${base.root}/allure-results" # Allure报告结果目录
+  allure_results: "${base.root}/report/allure-results" # Allure报告结果目录
   allure_report: "${base.root}/report" # Allure报告目录
 
 # 入口文件路径

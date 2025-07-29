@@ -9,7 +9,7 @@ from ..common.http_client import HttpClient
 from .extract_utils import extract
 
 
-def runner(k, v, var, log_config=None):
+def runner(k, v, var, log_config=None, env_config=None):
     """
     运行器
     :param k: 关键字
@@ -19,7 +19,7 @@ def runner(k, v, var, log_config=None):
     """
     from ..common.common_logger import CommonLogger
 
-    logger = CommonLogger(log_config=log_config)
+    logger = CommonLogger(log_config=log_config, env_config=env_config)
     resp = var.get("resp")
     match k:
         case "request":  # 请求

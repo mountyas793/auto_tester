@@ -31,7 +31,6 @@ class ConfigReader:
             env_data = yaml.safe_load(env_file)  # 锚点/别名自动展开
         # 替换环境变量
         env_data = self._replace_env_vars(env_data)
-        self._config = env_data
 
         return env_data
 
@@ -67,45 +66,44 @@ class ConfigReader:
     # ————————外部接口
     def get_current_env(self):
         """获取当前环境名称"""
-        config = self._config.get("environment", {})
-        return config.get("current", "test")
+        config = self.env_config_read()
+        return config.get("environment", {}).get("current", "test")
 
     def get_env_config(self):
         """获取当前环境的配置"""
-        if self._config is None:
-            self.env_config_read()
-        config = self._config.get("environment", {})
+        config = self.env_config_read()
         current_env = self.get_current_env()
-        return config.get(current_env, {})
+        self.logger.log_info(f"当前环境: {current_env}")
+        return config.get("environment", {}).get(current_env, {})
 
     def get_db_config(self):
         """获取当前环境的数据库配置"""
-        config = self._config
+        config = self.env_config_read
         current_env = self.get_current_env()
         # self.logger.log_info(f"当前数据库配置: {current_env}")
         return config.get("database", {}).get(current_env, {})
 
     def get_log_config(self):
         """获取当前环境的日志配置"""
-        config = self._config
+        config = self.env_config_read()
         # self.logger.log_info(f"当前日志配置: {current_env}")
         return config.get("logging", {})
 
     def get_allure_config(self):
         """获取当前环境的allure配置"""
-        config = self._config
+        config = self.env_config_read()
         # self.logger.log_info(f"当前allure配置: {current_env}")
         return config.get("allure", {})
 
     def get_test_settings(self):
         """获取当前环境的测试配置"""
-        config = self._config
+        config = self.env_config_read()
         # self.logger.log_info(f"当前测试配置: {current_env}")
         return config.get("test_settings", {})
 
     def get_auth_config(self):
         """获取当前环境的认证配置"""
-        config = self._config
+        config = self.env_config_read()
         # self.logger.log_info(f"当前认证配置: {current_env}")
         return config.get("auth", {})
 

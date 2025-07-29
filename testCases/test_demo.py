@@ -20,7 +20,6 @@ def test_selectCrmCluePage(test_data, log_config):
 
     for step in test_data["steps"]:
         for step_name, case_data in step.items():
-            print(f"step_name: {step_name}")
             with allure.step(step_name):
                 runner(step_name, case_data, resp, log_config)
 

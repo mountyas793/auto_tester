@@ -1,15 +1,12 @@
 # 打包配置
 [tool.setuptools.packages.find]
 where = ["."]  # 指定包目录
-include = ["common", "testCases"]  # 明确包含的包
+include = ["common", "testCases", "utils"]  # 明确包含的包
 
 # 测试配置
 [tool.pytest.ini_options]
 testpaths = ["testCases"]
-pythonpath = ["."]
-
-[project.scripts]
-run-tests = "auto_tester.main:main"
+addopts = "--alluredir=./report/allure"
 
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]

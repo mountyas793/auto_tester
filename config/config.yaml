@@ -1,11 +1,65 @@
----
-host:
-  dev: http://192.168.0.87:8080/dev-api
-  prod: https://www.cndachang.top/prod-api
+# 环境配置
+environment:
+  current: ${ENV:CURRENT_ENV:test} # 从环境变量读取当前环境，默认test
+  test:
+    base_url: "http://192.168.0.1:8080/dev-api"
+    timeout: 10
+    retry_count: 2
+  prod:
+    base_url: "https://www.cndachang.top/prod-api"
+    timeout: 5
+    retry_count: 1
 
-mysql:
-  host: 192.168.0.220
-  port: 3306
-  user: root
-  password: 123456
-  database: dc_oa_plus
+# 数据库配置
+database:
+  test:
+    host: ${ENV:DB_TEST_HOST:192.168.0.220}
+    port: ${ENV:DB_TEST_PORT:3306}
+    user: ${ENV:DB_TEST_USER:root}
+    password: ${ENV:DB_TEST_PASSWORD:}
+    db_name: ${ENV:DB_TEST_NAME:dc_oa_plus}
+    charset: "utf8mb4"
+  prod:
+    host: ${ENV:DB_PROD_HOST:8.136.97.156}
+    port: ${ENV:DB_PROD_PORT:3306}
+    user: ${ENV:DB_PROD_USER:root}
+    password: ${ENV:DB_PROD_PASSWORD:}
+    db_name: ${ENV:DB_PROD_NAME:dc_oa_plus_prod}
+    charset: "utf8mb4"
+
+# API认证配置
+auth:
+  test:
+    api_key: ${ENV:API_TEST_KEY:test_api_key_12345}
+    token_expire: 3600
+  prod:
+    api_key: ${ENV:API_PROD_KEY:prod_api_key_67890}
+    token_expire: 1800
+
+# 测试配置
+test_settings:
+  skip_slow_tests: false # 是否跳过慢测试
+  max_failures: 5 # 最大失败次数
+  run_parallel: true # 是否并行运行
+  parallel_workers: 4 # 并行工作进程数
+
+# 日志配置
+logging:
+  level: "INFO" # 日志级别：DEBUG/INFO/WARNING/ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_name: "test_run.log"
+  rotate: true # 是否轮转日志
+  max_bytes: 10485760 # 单个日志文件最大大小(10MB)
+  backup_count: 5 # 保留的日志备份数
+
+# 报告配置
+report:
+  allure:
+    enabled: true
+    clean_history: true
+    report_dir: "report"
+    results_dir: "report/allure-results"
+  html:
+    enabled: true
+    file_name: "test_report.html"
+    template: "default"

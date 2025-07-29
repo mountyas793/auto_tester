@@ -31,9 +31,6 @@ class HttpClient(object):
 
         # 记录请求
         self.logger.log_request(method, url, headers, body)
-        # print(
-        #     f"[DEBUG] 发送请求……\nmethod: {method}\nurl: {url}\nheaders: {headers}\nbody: {body}"
-        # )
 
         # 真正发送
         resp = self.session.request(
@@ -51,9 +48,6 @@ class HttpClient(object):
         except ValueError:
             resp_json = resp.text
         self.logger.log_response(resp.status_code, dict(resp.headers), resp_json)
-        # print(
-        #     f"[DEBUG] 响应状态码：{resp.status_code}\n响应头：{dict(resp.headers)}\n响应体：{resp_json}"
-        # )
 
         return resp
 
@@ -64,6 +58,6 @@ if __name__ == "__main__":
     dotenv.load_dotenv("config/.env")
     from ..utils.yaml_utils import _load_yaml, _replace_env
 
-    data = _replace_env(_load_yaml("testData/test_api.yaml")["steps"][0]["request"])
+    data = _replace_env(_load_yaml("testData/api_config.yaml")["steps"][0]["request"])
     session = HttpClient()
     resp = session.send_request(**data)

@@ -19,38 +19,59 @@ class CommonLogger:
     # 单例实例
     _instance = None
 
-    def __new__(cls, log_dir="logs", log_name="requests", backup_days=7, console=True):
+    def __new__(
+        cls, log_dir="logs", log_name="requests", log_config=None, console=True
+    ):
         """单例模式"""
         if cls._instance is None:
             cls._instance = super().__new__(cls)
-            cls._instance._setup(log_dir, log_name, backup_days, console)
+            cls._instance._setup(log_dir, log_name, log_config, console)
         return cls._instance
 
     # ---------- 内部 ----------
-    def _setup(self, log_dir, log_name, backup_days, console):
+    def _setup(self, log_dir, log_name, log_config, console):
         """初始化日志器"""
         self.logger = logging.getLogger("CommonLogger")
         if self.logger.handlers:
             return
 
-        self.logger.setLevel(logging.INFO)
-        fmt = "%(asctime)s [%(levelname)s] %(message)s"
+        # 使用config.yaml中的配置或默认值
+        if log_config:
+            level = getattr(logging, log_config.get("level", "INFO"))
+            fmt = log_config.get("format", "%(asctime)s [%(levelname)s] %(message)s")
+            file_name = log_config.get("file_name", f"{log_name}.log")
+            backup_count = log_config.get("backup_count", 7)
+        else:
+            level = logging.INFO
+            fmt = "%(asctime)s [%(levelname)s] %(message)s"
+            file_name = f"{log_name}.log"
+            backup_count = 7
+
+        self.logger.setLevel(level)
         formatter = logging.Formatter(fmt, datefmt="%Y-%m-%d %H:%M:%S")
 
         # 控制台输出
-        # if console:
-        #     ch = logging.StreamHandler()
-        #     ch.setFormatter(formatter)
-        #     self.logger.addHandler(ch)
+        if console:
+            ch = logging.StreamHandler()
+            ch.setFormatter(formatter)
+            self.logger.addHandler(ch)
 
         os.makedirs(log_dir, exist_ok=True)
-        fh = TimedRotatingFileHandler(
-            os.path.join(log_dir, f"{log_name}.log"),
-            when="midnight",
-            interval=1,
-            backupCount=backup_days,
-            encoding="utf-8",
-        )
+
+        # 使用TimedRotatingFileHandler或RotatingFileHandler根据配置
+        if log_config and log_config.get("rotate", True):
+            fh = TimedRotatingFileHandler(
+                os.path.join(log_dir, file_name),
+                when="midnight",
+                interval=1,
+                backupCount=backup_count,
+                encoding="utf-8",
+            )
+        else:
+            fh = logging.FileHandler(
+                os.path.join(log_dir, file_name),
+                encoding="utf-8",
+            )
         fh.setFormatter(formatter)
         self.logger.addHandler(fh)
 

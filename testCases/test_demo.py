@@ -14,7 +14,7 @@ from ..utils.runner_utils import runner
 @allure.feature("线索管理")
 @allure.story("数据查询")
 @allure.tag("查询")
-def test_selectCrmCluePage(test_data):
+def test_selectCrmCluePage(test_data, log_config):
     resp = {}
     allure.title(test_data["name"])
 
@@ -22,7 +22,7 @@ def test_selectCrmCluePage(test_data):
         for step_name, case_data in step.items():
             print(f"step_name: {step_name}")
             with allure.step(step_name):
-                runner(step_name, case_data, resp)
+                runner(step_name, case_data, resp, log_config)
 
 
 if __name__ == "__main__":

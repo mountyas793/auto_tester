@@ -5,12 +5,11 @@
 # @Date: 2025/07/23 21:30
 # @Desc: 运行器，根据关键字，调用不同的函数，实现不同的功能
 
-from ..common.common_logger import CommonLogger
 from ..common.http_client import HttpClient
 from .extract_utils import extract
 
 
-def runner(k, v, var):
+def runner(k, v, var, log_config=None):
     """
     运行器
     :param k: 关键字
@@ -18,7 +17,9 @@ def runner(k, v, var):
     :param var: 变量
     :return:
     """
-    logger = CommonLogger()
+    from ..common.common_logger import CommonLogger
+
+    logger = CommonLogger(log_config=log_config)
     resp = var.get("resp")
     match k:
         case "request":  # 请求

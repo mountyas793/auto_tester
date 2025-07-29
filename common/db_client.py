@@ -6,6 +6,7 @@
 # @Desc: 数据库客户端，用于连接数据库、执行 SQL 语句、获取结果等。
 
 import pymysql
+
 from .common_logger import CommonLogger
 from .config_reader import ConfigReader
 
@@ -14,12 +15,13 @@ class DbClient:
     def __init__(self):
         """初始化数据库连接"""
         self.logger = CommonLogger()
-        self.db_config = ConfigReader().get_config_info("mysql")
-        self.host = self.db_config["host"]
-        self.port = self.db_config["port"]
-        self.user = self.db_config["user"]
-        self.password = self.db_config["password"]
-        self.db = self.db_config["database"]
+        self.config_reader = ConfigReader()
+        self.db_config = self.config_reader.get_db_config()
+        self.host = self.db_config.get("host")
+        self.port = self.db_config.get("port")
+        self.user = self.db_config.get("user")
+        self.password = self.db_config.get("password")
+        self.db = self.db_config.get("database")
         self.conn = None
         self.cursor = None
 

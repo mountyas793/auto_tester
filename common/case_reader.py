@@ -17,25 +17,26 @@ def _load_yaml(path: str = "testData/api_config.yaml") -> dict:
         return yaml.safe_load(f)  # 锚点/别名自动展开
 
 
-def _replace_env(obj):
-    """递归替换 {{ENV}}"""
+def _replace_env(obj, custom_vars=None):
+    """递归替换 {{ENV}} 和自定义变量"""
     if isinstance(obj, str):
+        # 替换自定义变量
+        if custom_vars:
+            for var_name, var_value in custom_vars.items():
+                obj = obj.replace(f"{{{{{var_name}}}}}", str(var_value))
+
+        # 替换环境变量
         for k, v in os.environ.items():
             obj = obj.replace(f"{{{{{k}}}}}", v)
         return obj
     if isinstance(obj, dict):
-        return {k: _replace_env(v) for k, v in obj.items()}
+        return {k: _replace_env(v, custom_vars) for k, v in obj.items()}
     if isinstance(obj, list):
-        return [_replace_env(i) for i in obj]
+        return [_replace_env(i, custom_vars) for i in obj]
     return obj
 
 
-def case_read(path: str = "testData/api_config.yaml") -> dict:
-    """读取yaml文件, 替换环境变量, 返回字典"""
+def case_read(path: str = "testData/api_config.yaml", custom_vars=None) -> dict:
+    """读取yaml文件, 替换环境变量和自定义变量, 返回字典"""
     data = _load_yaml(path)
-    return _replace_env(data)
-
-
-if __name__ == "__main__":
-    data = case_read()
-    print(data)
+    return _replace_env(data, custom_vars)

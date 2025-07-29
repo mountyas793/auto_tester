@@ -3,10 +3,10 @@ name: 线索管理查询-成功
 steps:
   - request:
       method: post
-      url: "{{HOST}}/dc-project/crmcustom/selectCrmCluePage"
+      url: "{{base_url}}/dc-project/crmcustom/selectCrmCluePage"
       headers: &default_headers
         Content-Type: application/json
-        Authorization: "Bearer {{TOKEN}}"
+        Authorization: "Bearer {{token}}"
       body:
         pageNum: 1
         pageSize: 10

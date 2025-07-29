@@ -5,7 +5,6 @@
 # @Date: 2025/07/23 20:11
 # @Desc: 读取项目配置文件，支持环境变量替换
 
-import os
 from functools import lru_cache
 
 import yaml
@@ -15,11 +14,17 @@ from .path_manager import PathManager
 
 
 class ConfigReader:
-    def __init__(self, config_name: str = "config.yaml"):
+    def __init__(
+        self,
+        config_name: str = "config.yaml",
+        env_path: str = "base.config",
+        env_config: dict = None,
+    ):
         """初始化配置读取器"""
         self.project_path = PathManager()
         self.logger = CommonLogger()
-        self.config_path = self.project_path.get_path("base.config") / config_name
+        self.env_config = env_config
+        self.config_path = self.project_path.get_path(env_path) / config_name
         self._config = None
 
     @lru_cache(maxsize=1)
@@ -29,8 +34,6 @@ class ConfigReader:
 
         with open(self.config_path, encoding="utf-8") as env_file:
             env_data = yaml.safe_load(env_file)  # 锚点/别名自动展开
-        # 替换环境变量
-        env_data = self._replace_env_vars(env_data)
 
         return env_data
 
@@ -38,30 +41,6 @@ class ConfigReader:
         """清除缓存"""
         self.env_config_read.cache_clear()
         self.logger.log_info("清除配置缓存")
-
-    def _replace_env_vars(self, obj):
-        """递归替换配置中的环境变量占位符"""
-        if isinstance(obj, str):
-            # 处理 ${ENV:VAR_NAME:default_value} 格式
-            import re
-
-            # 匹配 ${ENV:VAR_NAME:default_value} 格式
-            pattern = r"\$\{ENV:([^}]+)\}"
-            # 查找所有匹配项
-            matches = re.findall(pattern, obj)
-            for match in matches:
-                parts = match.split(":", 1)
-                var_name = parts[0]
-                default_value = parts[1] if len(parts) > 1 else ""
-                env_value = os.environ.get(var_name, default_value)
-                obj = obj.replace(f"${{ENV:{match}}}", env_value)
-            return obj
-        elif isinstance(obj, dict):
-            return {k: self._replace_env_vars(v) for k, v in obj.items()}
-        elif isinstance(obj, list):
-            return [self._replace_env_vars(item) for item in obj]
-        else:
-            return obj
 
     # ————————外部接口
     def get_current_env(self):
